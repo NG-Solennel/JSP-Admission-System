@@ -5,15 +5,16 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.http.HttpSession;
 import net.sol.dao.UserDao;
 
 
-@WebServlet("/login")
+@WebServlet("/admission")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDao userDao;
@@ -23,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
+			throws IOException, jakarta.servlet.ServletException {
 		try {
 			validate(request, response);
 		} catch (IOException e) {
@@ -37,17 +38,20 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		response.sendRedirect("register.jsp");
+		response.sendRedirect("index.jsp");
 	}
 
-	private void validate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	private void validate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, jakarta.servlet.ServletException {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
 		Boolean validated = userDao.validate(email, password);
 		
+		HttpSession session = request.getSession();
+		RequestDispatcher dispatcher = request.getRequestDispatcher("./pages/form.jsp");
 		if(validated) {
-			response.sendRedirect("pages/form.jsp");
+			session.setAttribute("isAuth", true);
+			dispatcher.forward(request, response);
 		}else {			
 			response.sendRedirect("index.jsp");
 		}

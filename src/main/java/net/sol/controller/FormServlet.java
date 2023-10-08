@@ -1,7 +1,12 @@
 package net.sol.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.CharArrayWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,6 +14,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import net.sol.dao.ApplicantDao;
+import net.sol.model.Applicant;
 
 @WebServlet("/submit-form")
 @MultipartConfig(maxFileSize = 16177215)
@@ -28,24 +35,46 @@ public class FormServlet extends HttpServlet {
 		String faculty = request.getParameter("admission-form-faculty");
 		String department = request.getParameter("admission-form-department");
 		String suggestions = request.getParameter("admission-form-suggestions");
-		Part filePart = request.getPart("diploma");
-		 if (filePart != null) {
-	            System.out.println(filePart.getName());
-	            System.out.println(filePart.getSize());
-	            System.out.println(filePart.getContentType());  
-	        }
+		Part diplomaPart = request.getPart("diploma");
+		Part photoPart = request.getPart("photo");
+		InputStream diplomaStream = diplomaPart.getInputStream();
+		InputStream photoStream = photoPart.getInputStream();
+		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+		int nRead;
+		byte[] data = new byte[1024];
+		while ((nRead = photoStream.read(data, 0, data.length)) != -1) {
+		  buffer.write(data, 0, nRead);
+		}
+		buffer.flush();
+		byte[] photoBytes = buffer.toByteArray();
+		InputStreamReader reader = new InputStreamReader(diplomaStream);
+		CharArrayWriter writer = new CharArrayWriter();
+		char[] buffer1 = new char[1024];
+		int read;
+		while ((read = reader.read(buffer1)) != -1) {
+		    writer.write(buffer1, 0, read);
+		}
+		char[] charArray = writer.toCharArray();
 		
+		Applicant applicant = new Applicant();
+		applicant.setName(name);
+		applicant.setEmail(email);
+		applicant.setGuardianName(guardianName);
+		applicant.setGuardianEmail(guardianEmail);
+		applicant.setAge(age);
+		applicant.setProgram(program);
+		applicant.setFaculty(faculty);
+		applicant.setDepartment(department);
+		applicant.setStatus(status);
+		applicant.setSuggestions(suggestions);
+		applicant.setPhoto(photoBytes);
+		applicant.setDiploma(charArray);
 		
-		System.out.println(name);
-		System.out.println(email);
-		System.out.println(guardianName);
-		System.out.println(guardianEmail);
-		System.out.println(age);
-		System.out.println(program);
-		System.out.println(status);
-		System.out.println(faculty);
-		System.out.println(department);
-		System.out.println(suggestions);
+		ApplicantDao applicantDao = new ApplicantDao();
+		applicantDao.saveApplicant(applicant);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("./pages/form.jsp");
+		dispatcher.forward(request, response);
+		
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

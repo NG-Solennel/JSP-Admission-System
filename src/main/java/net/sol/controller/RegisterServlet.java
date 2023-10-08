@@ -15,7 +15,7 @@ import net.sol.model.User;
 
 
 @WebServlet("/register")
-public class UserController extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDao userDao;
 
@@ -42,7 +42,7 @@ public class UserController extends HttpServlet {
 	}
 
 	private void register(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String email = request.getParameter("firstName");
+		String email = request.getParameter("email");
 		String names = request.getParameter("names");
 		String password = request.getParameter("password");
 
@@ -52,7 +52,6 @@ public class UserController extends HttpServlet {
 		user.setPassword(password);
 
 		userDao.saveUser(user);
-		 response.setContentType("text/html;charset=UTF-8");
-		response.getWriter().append("<center><h1>Success</h1></center>");
+		response.sendRedirect("index.jsp");
 	}
 }

@@ -27,7 +27,7 @@ public class UserDao {
         }
     }
 
-    public boolean validate(String userName, String password) {
+    public boolean validate(String email, String password) {
 
         Transaction transaction = null;
         User user = null;
@@ -36,7 +36,7 @@ public class UserDao {
             // start a transaction
             transaction = session.beginTransaction();
             // get an user object
-            user = (User) session.createQuery("FROM User U WHERE U.username = :userName").setParameter("userName", userName)
+            user = (User) session.createQuery("FROM User U WHERE U.email = :email").setParameter("email", email)
                 .uniqueResult();
 
             if (user != null && user.getPassword().equals(password)) {

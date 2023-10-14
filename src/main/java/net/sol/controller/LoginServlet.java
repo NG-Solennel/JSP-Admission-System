@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import net.sol.dao.UserDao;
 
 
-@WebServlet("/admission")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDao userDao;
@@ -48,9 +48,10 @@ public class LoginServlet extends HttpServlet {
 		Boolean validated = userDao.validate(email, password);
 		
 		HttpSession session = request.getSession();
-		RequestDispatcher dispatcher = request.getRequestDispatcher("./pages/form.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("./pages/home.jsp");
 		if(validated) {
 			session.setAttribute("isAuth", true);
+			session.setAttribute("email", email);
 			dispatcher.forward(request, response);
 		}else {			
 			response.sendRedirect("index.jsp");

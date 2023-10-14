@@ -30,7 +30,7 @@
 
 body {
   padding: 2% 0;
-  background-color: #37404a;
+  background-color: #222222;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,7 +44,7 @@ h1 {
   font-family: "Roboto", sans-serif;
   font-size: 2.2em;
   font-weight: 300;
-  color: #85ffc7;
+  color: #1FFF96;
   text-transform: uppercase;
 }
 
@@ -102,10 +102,10 @@ a:hover {
   border-bottom: 2px solid #fff;
   font-size: 1.1em;
   font-weight: 300;
-  color: #85ffc7;
+  color: #1FFF96;
 }
 #admission-form input:focus {
-  border-color: #85ffc7;
+  border-color: #1FFF96;
 }
 #admission-form [type="checkbox"],
 #admission-form [type="radio"] {
@@ -129,7 +129,7 @@ a:hover {
   height: 23px;
   width: 23px;
   transition: all 0.15s ease-out 0s;
-  background: #37404a;
+  background: #222222;
   color: #fff;
   cursor: pointer;
   outline: none;
@@ -138,7 +138,7 @@ a:hover {
 }
 #admission-form [type="checkbox"]:hover,
 #admission-form [type="radio"]:hover {
-  border-color: #85ffc7;
+  border-color: #1FFF96;
 }
 #admission-form [type="checkbox"]:checked:before,
 #admission-form [type="radio"]:checked:before {
@@ -153,7 +153,7 @@ a:hover {
   font-family: "Glyphicons Halflings";
   line-height: 20px;
   font-size: 15px;
-  color: #85ffc7;
+  color: #1FFF96;
 }
 #admission-form [type="checkbox"]:focus,
 #admission-form [type="radio"]:focus {
@@ -179,9 +179,9 @@ a:hover {
 #admission-form select {
   height: 40px;
   padding-left: 5px;
-  background-color: #37404a;
+  background-color: #222222;
   border: 2px solid #fff;
-  color: #85ffc7;
+  color: #1FFF96;
 }
 #admission-form select option {
   padding: 5px 10px;
@@ -189,7 +189,7 @@ a:hover {
   cursor: pointer;
 }
 #admission-form select option:hover {
-  background-color: #85ffc7;
+  background-color: #1FFF96;
 }
 #admission-form textarea {
   resize: none;
@@ -197,8 +197,8 @@ a:hover {
   padding: 10px 10px 0px 20px;
   width: 95%;
   height: 90px;
-  color: #85ffc7;
-  background-color: #37404a;
+  color: #1FFF96;
+  background-color: #222222;
   border: 2px solid #fff;
 }
 #admission-form .btn {
@@ -210,11 +210,11 @@ a:hover {
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
-  border: 3px solid #85ffc7;
+  border: 3px solid #1FFF96;
   border-radius: 0;
   font-weight: 500;
   font-size: 1.2em;
-  color: #85ffc7;
+  color: #1FFF96;
   text-align: center;
   background: none;
   transition: color 0.25s ease;
@@ -226,13 +226,13 @@ a:hover {
   left: 0;
   width: 0;
   height: 100%;
-  background-color: #85ffc7;
+  background-color: #1FFF96;
   transform-origin: left;
   transition: width 0.5s ease;
   z-index: -1;
 }
 #admission-form .btn:hover {
-  color: #37404a;
+  color: #222222;
 }
 #admission-form .btn:hover:after {
   width: 100%;
@@ -260,7 +260,28 @@ fieldset small {
   font-weight: 600;
   display: none;
 }
-
+.back{
+    padding: 5px 20px;
+    box-shadow: #1FFF96 0px 2px 10px;
+    max-width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in;
+    text-decoration: none;
+    color: #1FFF96;
+    position: absolute;
+    right: 80px;
+}
+.back:hover{
+    scale: 1.1;
+    color: #1FFF96
+}
+.back-container{
+	width: 100%;
+	position: relative;
+	margin: 30px 0
+}
 @media only screen and (max-width: 600px) {
   body {
     padding: 8% 0;
@@ -271,6 +292,9 @@ fieldset small {
   </head>
   <body>
     <main id="main" class="container">
+        <a href="<%=request.getContextPath()%>/home" class="back">
+           Back
+           </a>  
       <div class="row">
         <div class="col-xs-12 col-lg-offset-3 col-lg-6">
           <div class="m-b-md text-center">
@@ -685,7 +709,7 @@ fieldset small {
           );
           break;
         default:
-          console.log("Error occured mapping");
+          console.error("Error occured mapping");
           break;
       }
     };

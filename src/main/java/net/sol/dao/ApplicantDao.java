@@ -1,5 +1,8 @@
 package net.sol.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -10,11 +13,8 @@ public class ApplicantDao {
         Transaction transaction = null;
         try {
         	Session session = FactoryManager.getSessionFactory().openSession();
-            // start a transaction
             transaction = session.beginTransaction();
-            // save the student object
             session.save(applicant);
-            // commit transaction
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -23,4 +23,12 @@ public class ApplicantDao {
             e.printStackTrace();
         }
     }
+	
+	public List<Applicant> getAllApplicants(){
+		List<Applicant> applicants = new ArrayList<Applicant>();
+		Session session = FactoryManager.getSessionFactory().openSession();
+		 applicants = session.createQuery("FROM Applicant").list();
+	  	session.close();
+	  	return applicants;		
+	}
 }

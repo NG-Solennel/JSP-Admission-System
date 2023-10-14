@@ -97,7 +97,7 @@
 <div class="container">
     <div class="form-container" id="login-form">
       <h1>Login</h1>
-      <form action="<%=request.getContextPath()%>/admission" method="post">
+      <form action="<%=request.getContextPath()%>/login" method="post">
        <label for="email">Email</label>
         <input type="email" id="email" name="email" required>
         <label for="password">Password</label>

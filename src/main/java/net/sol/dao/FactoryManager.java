@@ -3,6 +3,7 @@ package net.sol.dao;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.SessionFactory;
 
+@SuppressWarnings("deprecation")
 public class FactoryManager {
     private static final SessionFactory sessionFactory;
 

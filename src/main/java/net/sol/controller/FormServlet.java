@@ -78,7 +78,8 @@ public class FormServlet extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
-		response.sendRedirect("index.jsp");
+			throws IOException, ServletException {
+		RequestDispatcher dispatcherForm = request.getRequestDispatcher("./pages/form.jsp");
+		dispatcherForm.forward(request, response);
 	}
 }

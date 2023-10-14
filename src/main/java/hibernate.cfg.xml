@@ -10,5 +10,6 @@
   <property name="hibernate.hbm2ddl.auto">update</property>
   <mapping class="net.sol.model.User"/>
   <mapping class="net.sol.model.Applicant"/>
+  <mapping class="net.sol.model.Admin"/>
  </session-factory>
 </hibernate-configuration>

@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.sol.dao.ApplicantDao;
 import net.sol.model.Applicant;
-import net.sol.pojo.MailObj;
-import net.sol.util.SendMail;
+import net.sol.util.Mail;
+import net.sol.util.UtilFunctions;
 
 import java.io.IOException;
 
@@ -30,14 +30,16 @@ public class ReplyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.valueOf(request.getParameter("id"));
 		String answer = request.getParameter("answer");
-		System.out.println(id);
-		System.out.println(answer);
 		Applicant applicant = applicantDao.getApplicantById(id);
-		SendMail mailer = new SendMail();
-		MailObj mailObj = new MailObj(applicant.getEmail(),"Testing");
-		boolean mailSent = mailer.sendMail(mailObj);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("./pages/applications.jsp?status=" + Boolean.toString(mailSent));
-		dispatcher.forward(request, response);
+		System.out.println(answer);
+		String message = UtilFunctions.getMessage(answer, applicant.getName());
+	
+		try {		
+			Mail.sendMail(applicant.getEmail(), message,"Application response");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**

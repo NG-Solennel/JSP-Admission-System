@@ -320,19 +320,16 @@ a:hover{
                     >
                   </td>
                    <td style="text-align: center;">
-                    <button
-                      type="button"
+                    <div
                       class="btn btn-primary btn-sm btn-rounded text-primary"
                     >
-                      <a href="">Accept</a>
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-danger btn-sm btn-rounded text-primary"
-                      
+                      <a href="<%=request.getContextPath()%>/reply?id=<%=applicant.getId()%>&answer=<%="accept"%>">Accept</a>
+                    </div>
+                    <div
+                      class="btn btn-danger btn-sm btn-rounded text-primary" 
                     >
-                      <a href="">Reject</a>
-                    </button>
+                      <a href="<%=request.getContextPath()%>/reply?id=<%=applicant.getId()%>&answer=<%="reject"%>">Reject</a>
+                    </div>
                   </td>
                 </tr>
                 <%}%>

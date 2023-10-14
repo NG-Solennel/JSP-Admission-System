@@ -34,7 +34,7 @@ public class ApplicationServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		else {
-			RequestDispatcher dispatcherForm = request.getRequestDispatcher("./pages/form.jsp");
+			RequestDispatcher dispatcherForm = request.getRequestDispatcher("./pages/home.jsp");
 			dispatcherForm.forward(request, response);
 		}
 	}

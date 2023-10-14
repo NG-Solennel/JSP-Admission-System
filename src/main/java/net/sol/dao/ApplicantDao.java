@@ -31,4 +31,16 @@ public class ApplicantDao {
 	  	session.close();
 	  	return applicants;		
 	}
+	
+	public Applicant getApplicantById(int Id) {
+		Applicant applicant = null;
+		try {
+			Session session = FactoryManager.getSessionFactory().openSession();
+			applicant = (Applicant) session.get(Applicant.class, Id);
+			return applicant;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+				return applicant;
+	}
 }

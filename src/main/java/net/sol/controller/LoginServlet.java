@@ -2,6 +2,7 @@ package net.sol.controller;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -11,7 +12,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import net.sol.dao.AcademicUnitDao;
 import net.sol.dao.UserDao;
+import net.sol.model.AcademicUnit;
+import net.sol.model.EAcademicUnit;
 
 
 @WebServlet("/login")
@@ -44,9 +48,16 @@ public class LoginServlet extends HttpServlet {
 	private void validate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, jakarta.servlet.ServletException {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-
 		Boolean validated = userDao.validate(email, password);
-		
+		AcademicUnitDao dao = new AcademicUnitDao();
+		List<AcademicUnit> programmes = dao.getProgrammes();
+		List<AcademicUnit> faculties = dao.getFacultiesByProgramme(1);
+		for(AcademicUnit programme: programmes) {
+			System.out.println(programme.getName());
+		}
+		for(AcademicUnit faculty: faculties) {
+			System.out.println(faculty.getName());
+		}
 		HttpSession session = request.getSession();
 		RequestDispatcher dispatcher = request.getRequestDispatcher("./pages/home.jsp");
 		if(validated) {

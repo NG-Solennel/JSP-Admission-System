@@ -69,7 +69,7 @@ main{
             <a href="<%=request.getContextPath()%>/submit-form" class="main-card">
                 <span>Application form</span>
             </a>
-            <a href="<%=request.getContextPath()%>/courses" class="main-card">
+            <a href="<%=request.getContextPath()%>/allcourses" class="main-card">
                 <span>Courses</span>
             </a>
             <a href="<%=request.getContextPath()%>/logout" class="main-card">

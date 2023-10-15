@@ -122,8 +122,10 @@ h2{
     padding:1rem;
     border-radius: 12px;
     background-color: var(--main-bg);
-    height: 550px;
+    height: 640px;
     overflow-y: scroll;
+    width: 630px;
+    margin-top: -40px
 }
 
 
@@ -151,9 +153,7 @@ text-align: center;
 
 /* //Removes border from last table row */
 
- tr td:last-child{
-    text-align: right;
- }
+ 
 
  tbody{
     background-color: var(--main-bg);
@@ -254,137 +254,126 @@ a{
 a:hover{
     color:white 
 }
+
+.main-sub{
+display: flex;
+justify-content: space-between;
+align-items: center
+}
+
+.form-container{
+	box-shadow: #1FFF96 0px 2px 10px;
+    padding: 50px 30px;
+    border-radius: 12px;
+    background-color: var(--main-bg);
+    height: 550px;
+    overflow-y: scroll;
+    width: 550px;
+    }
+input,textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  background: #3b3b3b;
+  transition: border 0.15s ease-in-out;
+  margin-top: 10px
+}
+input:focus,textarea:focus {
+  border: none;
+  outline: none;
+  box-shadow: #1FFF96 0px 2px 10px;
+}
+
+form label{
+margin-top: 20px
+}
+button {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  font-size: 1rem;
+  background-color: #016436;
+  color: white;
+  cursor: pointer;
+  margin-top: 20px
+}
+button:hover {
+  background-color: #019751;
+}
+button:focus {
+  border: none;
+  box-shadow: #1FFF96 0px 2px 10px;
+}
   </style>
-    <title>Applications</title>
+    <title>Courses</title>
   </head>
   <body>
     <div class="main">
       <div class="container">
         <div class="main-sub row align-items-center pt-2">
-        <div class="back-container">
-      <a href="<%=request.getContextPath()%>/home" class="back">
-           Back
-           </a>         
-        </div>
-          <div class="table-container mt-5">
+	        <div class="back-container">
+				<a href="<%=request.getContextPath()%>/home" class="back">
+	           Back
+	           </a>         
+	        </div>
+          <div class="table-container">
             <div class="mb-2">
-              <h2 class="">Applications</h2>
+              <h2 class="">Courses</h2>
               <small class="text-secondary"
-                >View all applicants details.</small
+                >View all courses.</small
               >
             </div>
             <table id="mytable" class="table align-middle mb-0 bg-white">
               <thead class="bg-light">
                 <tr class="header-row">
-                  <th>ID</th>
+                  <th>CODE</th>
                   <th>Name</th>
-                  <th>Email</th>
-                  <th>Department</th>
-                  <th>Faculty</th>
-                  <th>Program</th>
-                  <th>Action</th>
+           		 <th>Description</th>	
                 </tr>
               </thead>
               <tbody>
-              <%
-              List<Student> students = new ArrayList<Student>();
-                                          StudentDao dao = new StudentDao();
-                                          students = dao.getAllStudents();
-                                          
-                                          for (Student student : students) {
-              %>
+             
                 <tr>
                   <td>
-                    <div class="d-flex align-items-center">
-                      <div class="">
-                        <p class="fw-bold mb-1">
-                        <%=student.getId()%>
-                        </p>
-                      </div>
-                    </div>
+                        <p class="fw-bold fw-normal mb-1">
+                        INSY318
+                       </p>
                   </td>
+                  
                   <td>
-                    <span
-                      ><a
-                        class="btn avatar-button rounded-circle overflow-hidden p-0 m-0 d-inline-flex"
-                        ><img
-                          src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(student.getPhoto()) %>"
-                          class="avatar-span border-0 d-inline-flex align-items-center justify-content-center text-white text-uppercase text-nowrap font-weight-normal"
-                        >
-                      ></a>
-                      <!----></span
-                    ><%=student.getName()%>
-                  </td>
-                  <td>
-                    <p class="fw-bold fw-normal mb-1"><%=student.getEmail()%></p>
+                    <p class="fw-bold fw-normal mb-1">Web Technology and Internet</p>
                   </td>
                   
                   
-                  <td><%=student.getFaculty()%></td>
-                  <td><%=student.getDepartment() %></td>
+                  <td><p class="fw-bold fw-normal mb-1">Web Technology and world wide web</p></td>
                   
-                  <td>
-                    <span class="badge badge-success rounded-pill d-inline"
-                      ><%=student.getProgram()%></span
-                    >
-                  </td>
-                   <td style="text-align: center;">
-                    <div
-                      class="btn btn-primary btn-sm btn-rounded text-primary"
-                    >
-                      <a href="<%=request.getContextPath()%>/reply?id=<%=student.getId()%>&answer=<%="accept"%>">Accept</a>
-                    </div>
-                    <div
-                      class="btn btn-danger btn-sm btn-rounded text-primary" 
-                    >
-                      <a href="<%=request.getContextPath()%>/reply?id=<%=student.getId()%>&answer=<%="reject"%>">Reject</a>
-                    </div>
-                  </td>
                 </tr>
-                <%}%>
               </tbody>
             </table>
-
-            <!-- <nav class="mt-4">
-              <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                  <a class="page-link">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">Next</a>
-                </li>
-              </ul>
-            </nav> -->
+          </div>
+          <div class="form-container mt-5">
+ 			 <h2>Add Course</h2>
+ 			 <form method="POST" action="<%=request.getContextPath()%>/allcourses">
+ 			 <label for="code">Code</label>
+			 <input type="text" name="code" />
+			  <label for="name">Name</label>
+			 <input type="text" name="name" />
+			  <label for="name">Description</label><br/>
+			 <textarea name="description" rows="2"></textarea>
+  			<button>Add course</button>
+ 			
+ 			 </form>
           </div>
         </div>
       </div>
     </div>
-  </body>
-  <script>
-$("#change-status").change(function(){
-    var selectedValue=$('#change-status :selected').text(); 
-    if(selectedValue === "All"){
-      $('table > tbody  > tr').each(function(i) {
-            $(this).show() 
-      });
-    }else{
-      $('table > tbody  > tr > td').each(function(i) {
-        if(this.dataset.label === "Status"){
-          if($(this).children( 'span' ).text() != selectedValue){
-            $(this).closest("tr").hide()
-          }else{
-            $(this).closest("tr").show()
-          }
 
-        }
-      });
-    }
-    
-  });
-</script>
+  </body>
+ 
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

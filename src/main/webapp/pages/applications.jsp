@@ -56,6 +56,10 @@
     
 }
 
+tbody td{
+font-size: 13px;
+}
+
 .text-primary{
     color:var(--primary-btn-text) !important;
 }

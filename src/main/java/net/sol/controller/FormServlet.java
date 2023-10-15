@@ -14,7 +14,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import net.sol.dao.AcademicUnitDao;
 import net.sol.dao.ApplicantDao;
+import net.sol.model.AcademicUnit;
 import net.sol.model.Applicant;
 
 @WebServlet("/submit-form")
@@ -30,10 +32,10 @@ public class FormServlet extends HttpServlet {
 		String guardianName = request.getParameter("guardian-name");
 		String guardianEmail = request.getParameter("guardian-email");
 		int age = Integer.parseInt(request.getParameter("age"));
-		String program = request.getParameter("program");
+		int programParam = Integer.parseInt(request.getParameter("program"));
 		String status = request.getParameter("status");
-		String faculty = request.getParameter("admission-form-faculty");
-		String department = request.getParameter("admission-form-department");
+		int facultyParam = Integer.parseInt(request.getParameter("admission-form-faculty"));
+		int departmentParam = Integer.parseInt(request.getParameter("admission-form-department"));
 		String suggestions = request.getParameter("admission-form-suggestions");
 		Part diplomaPart = request.getPart("diploma");
 		Part photoPart = request.getPart("photo");
@@ -55,16 +57,19 @@ public class FormServlet extends HttpServlet {
 		    writer.write(buffer1, 0, read);
 		}
 		char[] charArray = writer.toCharArray();
-		
+		AcademicUnitDao academicUnitDao = new AcademicUnitDao();	
+		AcademicUnit program = academicUnitDao.getAcademicUnitById(programParam);
+		AcademicUnit faculty = academicUnitDao.getAcademicUnitById(facultyParam);
+		AcademicUnit department = academicUnitDao.getAcademicUnitById(departmentParam);
 		Applicant applicant = new Applicant();
 		applicant.setName(name);
 		applicant.setEmail(email);
 		applicant.setGuardianName(guardianName);
 		applicant.setGuardianEmail(guardianEmail);
 		applicant.setAge(age);
-		applicant.setProgram(program);
-		applicant.setFaculty(faculty);
-		applicant.setDepartment(department);
+		applicant.setProgram(program.getName());
+		applicant.setFaculty(faculty.getName());
+		applicant.setDepartment(department.getName());
 		applicant.setStatus(status);
 		applicant.setSuggestions(suggestions);
 		applicant.setPhoto(photoBytes);

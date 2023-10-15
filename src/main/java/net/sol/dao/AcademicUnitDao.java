@@ -76,4 +76,19 @@ public class AcademicUnitDao {
         }
 		return null;
     }
+	public AcademicUnit getAcademicUnitById(Integer id) {
+        Transaction transaction = null;
+        try {
+        	Session session = FactoryManager.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            AcademicUnit unit = (AcademicUnit)session.get(AcademicUnit.class, id);
+            return unit;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+		return null;
+    }
 }

@@ -1,3 +1,6 @@
+<%@page import="net.sol.dao.AcademicUnitDao"%>
+<%@page import="net.sol.model.AcademicUnit"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -405,34 +408,36 @@ fieldset small {
             </fieldset>
             <fieldset>
               <label for="program">
-                Select your program
+                Select a programme *
                 <select id="program" name="program" class="m-t-xs">
-                  <option value="Day">Day</option>
-                  <option value="Evening">Evening</option>
+                <%
+                AcademicUnitDao unitDao = new AcademicUnitDao();
+                List<AcademicUnit> programmes = unitDao.getProgrammes();
+            		  for(AcademicUnit programme:programmes){
+                %>
+                  <option  class="programme" value="<%=programme.getId()%>"><%=programme.getName() %></option>
+                <%}%>  
                 </select>
               </label>
             </fieldset>
             <fieldset>
-              <div class="labels">Faculty *</div>
-              <div class="radio-content">
-                <label class="m-b-xs">
-                  <input
-                    type="radio"
+             
+                <label for="admission-form-faculty">
+                 Faculty *
+                  <select
+                   	id="admission-form-faculty"
                     name="admission-form-faculty"
-                    value="Information Technology"
-                    checked
-                  />
-                  Information Technology
+                   class="m-t-xs"
+                    onchange="fetchFaculty()"
+                  >
+                  <%
+                  List<AcademicUnit> faculties = unitDao.getFacultiesByProgramme(1);
+                		 for(AcademicUnit faculty:faculties){
+                  %>
+                  <option class="admission-form-faculty" value="<%=faculty.getId()%>"><%=faculty.getName() %></option>
+                  <%}%>
+                  </select>
                 </label>
-                <label class="m-b-xs">
-                  <input
-                    type="radio"
-                    name="admission-form-faculty"
-                    value="Business Management"
-                  />
-                  Business Management
-                </label>
-              </div>
             </fieldset>
             <fieldset>
               <label for="admission-form-department" id="department-label">
@@ -442,13 +447,14 @@ fieldset small {
                   name="admission-form-department"
                   class="m-t-xs"
                 >
-                  <option value="Software Engineering" selected>
-                    Software Engineering
+                   <%
+                  List<AcademicUnit> departments = unitDao.getDepartmentsByFaculty(3);
+                		 for(AcademicUnit department:departments){
+                  %>
+                  <option value="<%=department.getId()%>">
+                    <%=department.getName() %>
                   </option>
-                  <option value="networking">Networking</option>
-                  <option value="Information Management">
-                    Information Management
-                  </option>
+                  <%}%>
                 </select>
               </label>
             </fieldset>
@@ -510,40 +516,12 @@ fieldset small {
     const statusInput = document.getElementById("status");
     const form = document.getElementById("admission-form");
     const depLabel = document.getElementById("department-label");
-    const depSelect = document.getElementById("admission-form-department");
+    const programOptions = document.getElementsByClassName("programme")
+    const facultySelect =  document.getElementById("admission-form-faculty")
+    const departmentSelect = document.getElementById("admission-form-department")
+    const programSelect =   document.getElementById("program")
     // const radioInputs = document.querySelectorAll('input[name="admission-form-faculty"]');
-
-    const faculties = [
-      {
-        name: "IT",
-        domProps: [
-          { value: "softwareEngineering", text: "Software Engineering" },
-          { value: "networking", text: "Networking" },
-          { value: "informationManagement", text: "Information Management" },
-        ],
-      },
-      {
-        name: "Business",
-        domProps: [
-          {
-            value: "accounting",
-            text: "Accounting",
-          },
-          {
-            value: "finance",
-            text: "Finance",
-          },
-          {
-            value: "management",
-            text: "Management",
-          },
-          {
-            value: "marketing",
-            text: "Marketing",
-          },
-        ],
-      },
-    ];
+	
     let checkedValue = "";
 
     form.addEventListener("submit", (e) => {
@@ -620,15 +598,50 @@ fieldset small {
       checkAge(ageInput.value);
     });
 
-    radioGroup.forEach((radio) => {
-      radio.addEventListener("click", () => {
-        if (radio.value === "Information Technology") {
-          createDepartments("IT");
-        } else if (radio.value === "Business Management") {
-          createDepartments("Business");
-        }
-      });
-    });
+   programSelect.addEventListener("input",()=>{
+	   const params = new URLSearchParams()
+	   let reponse;
+	   params.append("unit","FACULTY")
+	   params.append("id", programSelect.value)
+    fetch("AcademicUnit?" + params).then(res=>res.json()).then(res=>{
+    	facultySelect.innerHTML = ""
+    	res.forEach(faculty=>{
+    	const option = document.createElement("option")
+		option.value = faculty.id
+		option.textContent = faculty.name
+		facultySelect.append(option)
+		reponse =res
+		return res
+    	})
+    }).then(res=>{    	
+    const params1 = new URLSearchParams()
+  	   params1.append("unit","DEPARTMENT")
+  	   params1.append("id", reponse[0].id)
+  	    fetch("AcademicUnit?" + params1).then(res=>res.json()).then(res=>{
+  	    	departmentSelect.innerHTML = ""
+  	    	res.forEach(department=>{
+  	    	const option = document.createElement("option")
+  	   		option.value = department.id
+  	   		option.textContent = department.name
+  	   		departmentSelect.append(option)
+  	    	})
+  	    })
+    })
+    })
+    facultySelect.addEventListener("input",()=>{
+    	const params = new URLSearchParams()
+  	   params.append("unit","DEPARTMENT")
+  	   params.append("id", facultySelect.value)
+  	    fetch("AcademicUnit?" + params).then(res=>res.json()).then(res=>{
+  	    	departmentSelect.innerHTML = ""
+  	    	res.forEach(department=>{
+  	    	const option = document.createElement("option")
+  	   		option.value = department.id
+  	   		option.textContent = department.name
+  	   		departmentSelect.append(option)
+  	    	})
+  	    })
+     })
 
     const checkName = (value, element) => {
       let format = /^[a-z ,.'-]+$/gi;
@@ -693,38 +706,6 @@ fieldset small {
       }
     };
 
-    const createDepartments = (faculty) => {
-      const selectElement = document.getElementById("admission-form-department");
-      switch (faculty) {
-        case "IT":
-          createDOMSelect(
-            faculties.find((f) => f.name === "IT").domProps,
-            selectElement
-          );
-          break;
-        case "Business":
-          createDOMSelect(
-            faculties.find((f) => f.name === "Business").domProps,
-            selectElement
-          );
-          break;
-        default:
-          console.error("Error occured mapping");
-          break;
-      }
-    };
-
-    const createDOMSelect = (departments, selectElement) => {
-      selectElement.innerHTML = "";
-      const options = document.createDocumentFragment();
-      departments.forEach((department) => {
-        const optionElement = document.createElement("option");
-        optionElement.value = department.value;
-        optionElement.text = department.text;
-        options.appendChild(optionElement);
-      });
-      selectElement.appendChild(options);
-    };
 
     </script>
   </body>

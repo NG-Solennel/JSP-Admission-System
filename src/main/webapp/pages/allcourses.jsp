@@ -1,3 +1,5 @@
+<%@page import="net.sol.dao.CourseDefinitionDao"%>
+<%@page import="net.sol.model.CourseDefinition"%>
 <%@page import="java.util.Base64"%>
 <%@page import="net.sol.dao.StudentDao"%>
 <%@page import="java.util.ArrayList"%>
@@ -336,22 +338,27 @@ button:focus {
                 </tr>
               </thead>
               <tbody>
-             
+             <%
+             CourseDefinitionDao courseDefinitionDao = new CourseDefinitionDao();
+             List<CourseDefinition> courses =  courseDefinitionDao.getCourseDefinitions();
+             for(CourseDefinition course:courses){
+             %>
                 <tr>
                   <td>
                         <p class="fw-bold fw-normal mb-1">
-                        INSY318
+                        <%=course.getCode() %>
                        </p>
                   </td>
                   
                   <td>
-                    <p class="fw-bold fw-normal mb-1">Web Technology and Internet</p>
+                    <p class="fw-bold fw-normal mb-1"><%=course.getName() %></p>
                   </td>
                   
                   
-                  <td><p class="fw-bold fw-normal mb-1">Web Technology and world wide web</p></td>
+                  <td><p class="fw-bold fw-normal mb-1"><%=course.getDescription() %></p></td>
                   
                 </tr>
+                <%}%>
               </tbody>
             </table>
           </div>

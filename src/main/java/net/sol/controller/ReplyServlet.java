@@ -5,8 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import net.sol.dao.ApplicantDao;
-import net.sol.model.Applicant;
+import net.sol.dao.StudentDao;
+import net.sol.model.Student;
 import net.sol.util.Mail;
 import net.sol.util.UtilFunctions;
 
@@ -15,10 +15,10 @@ import java.io.IOException;
 @WebServlet("/reply")
 public class ReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ApplicantDao applicantDao;
+	private StudentDao studentDao;
 
 	public void init() {
-		applicantDao = new ApplicantDao();
+		studentDao = new StudentDao();
 	}
  
     public ReplyServlet() {
@@ -29,12 +29,12 @@ public class ReplyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.valueOf(request.getParameter("id"));
 		String answer = request.getParameter("answer");
-		Applicant applicant = applicantDao.getApplicantById(id);
+		Student student = studentDao.getStudentById(id);
 		System.out.println(answer);
-		String message = UtilFunctions.getMessage(answer, applicant.getName());
+		String message = UtilFunctions.getMessage(answer, student.getName());
 	
 		try {		
-			Mail.sendMail(applicant.getEmail(), message,"Application response");
+			Mail.sendMail(student.getEmail(), message,"Application response");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

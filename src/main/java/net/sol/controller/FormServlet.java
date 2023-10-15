@@ -15,9 +15,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import net.sol.dao.AcademicUnitDao;
-import net.sol.dao.ApplicantDao;
+import net.sol.dao.StudentDao;
 import net.sol.model.AcademicUnit;
-import net.sol.model.Applicant;
+import net.sol.model.Student;
 
 @WebServlet("/submit-form")
 @MultipartConfig(maxFileSize = 16177215)
@@ -61,22 +61,22 @@ public class FormServlet extends HttpServlet {
 		AcademicUnit program = academicUnitDao.getAcademicUnitById(programParam);
 		AcademicUnit faculty = academicUnitDao.getAcademicUnitById(facultyParam);
 		AcademicUnit department = academicUnitDao.getAcademicUnitById(departmentParam);
-		Applicant applicant = new Applicant();
-		applicant.setName(name);
-		applicant.setEmail(email);
-		applicant.setGuardianName(guardianName);
-		applicant.setGuardianEmail(guardianEmail);
-		applicant.setAge(age);
-		applicant.setProgram(program.getName());
-		applicant.setFaculty(faculty.getName());
-		applicant.setDepartment(department.getName());
-		applicant.setStatus(status);
-		applicant.setSuggestions(suggestions);
-		applicant.setPhoto(photoBytes);
-		applicant.setDiploma(charArray);
+		Student student = new Student();
+		student.setName(name);
+		student.setEmail(email);
+		student.setGuardianName(guardianName);
+		student.setGuardianEmail(guardianEmail);
+		student.setAge(age);
+		student.setProgram(program.getName());
+		student.setFaculty(faculty.getName());
+		student.setDepartment(department.getName());
+		student.setStatus(status);
+		student.setSuggestions(suggestions);
+		student.setPhoto(photoBytes);
+		student.setDiploma(charArray);
 		
-		ApplicantDao applicantDao = new ApplicantDao();
-		applicantDao.saveApplicant(applicant);
+		StudentDao studentDao = new StudentDao();
+		studentDao.saveStudent(student);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("./pages/form.jsp");
 		dispatcher.forward(request, response);
 		

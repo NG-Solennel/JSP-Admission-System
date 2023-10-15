@@ -12,9 +12,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.sol.dao.AcademicUnitDao;
-import net.sol.dao.UserDao;
 import net.sol.model.AcademicUnit;
-import net.sol.model.EAcademicUnit;
+
 
 @WebServlet("/AcademicUnit")
 public class AcademicUnitServlet extends HttpServlet {

@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 
 @Entity
-public class Applicant implements Serializable {
+public class Student implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -59,12 +59,12 @@ public class Applicant implements Serializable {
 	
 	
 
-	public Applicant() {
+	public Student() {
 	}
 
 	
 	
-	public Applicant(int id, String name, String email, String guardianName, String guardianEmail, int age,
+	public Student(int id, String name, String email, String guardianName, String guardianEmail, int age,
 			String program, String faculty, String department, String status, String suggestions, byte[] photo,
 			char[] diploma) {
 		this.id = id;

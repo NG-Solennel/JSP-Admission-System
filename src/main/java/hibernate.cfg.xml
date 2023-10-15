@@ -9,8 +9,9 @@
   <property name="hibernate.connection.password">KING2000</property>
   <property name="hibernate.hbm2ddl.auto">update</property>
   <mapping class="net.sol.model.User"/>
-  <mapping class="net.sol.model.Applicant"/>
+  <mapping class="net.sol.model.Student"/>
   <mapping class="net.sol.model.Admin"/>
   <mapping class="net.sol.model.AcademicUnit"/>
+  <mapping class="net.sol.model.CourseDefinition"/>
  </session-factory>
 </hibernate-configuration>

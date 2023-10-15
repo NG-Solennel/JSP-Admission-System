@@ -1,8 +1,6 @@
 package net.sol.controller;
 
-
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -44,7 +42,7 @@ public class LoginServlet extends HttpServlet {
 	private void validate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, jakarta.servlet.ServletException {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		Boolean validated = userDao.validate(email, password);
+		boolean validated = userDao.validate(email, password);
 		HttpSession session = request.getSession();
 		RequestDispatcher dispatcher = request.getRequestDispatcher("./pages/home.jsp");
 		if(validated) {

@@ -6,15 +6,15 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import net.sol.model.Applicant;
+import net.sol.model.Student;
 
-public class ApplicantDao {
-	public void saveApplicant(Applicant applicant) {
+public class StudentDao {
+	public void saveStudent(Student student) {
         Transaction transaction = null;
         try {
         	Session session = FactoryManager.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.save(applicant);
+            session.save(student);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -24,19 +24,19 @@ public class ApplicantDao {
         }
     }
 	
-	public List<Applicant> getAllApplicants(){
-		List<Applicant> applicants = new ArrayList<Applicant>();
+	public List<Student> getAllStudents(){
+		List<Student> applicants = new ArrayList<Student>();
 		Session session = FactoryManager.getSessionFactory().openSession();
-		 applicants = session.createQuery("FROM Applicant").list();
+		 applicants = session.createQuery("FROM Student").list();
 	  	session.close();
 	  	return applicants;		
 	}
 	
-	public Applicant getApplicantById(int Id) {
-		Applicant applicant = null;
+	public Student getStudentById(int Id) {
+		Student applicant = null;
 		try {
 			Session session = FactoryManager.getSessionFactory().openSession();
-			applicant = (Applicant) session.get(Applicant.class, Id);
+			applicant = (Student) session.get(Student.class, Id);
 			return applicant;
 		} catch (Exception e) {
 			e.printStackTrace();

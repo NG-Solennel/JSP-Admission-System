@@ -14,5 +14,7 @@
   <mapping class="net.sol.model.AcademicUnit"/>
   <mapping class="net.sol.model.CourseDefinition"/>
   <mapping class="net.sol.model.Teacher"/>
+  <mapping class="net.sol.model.Semester"/>
+  <mapping class="net.sol.model.Course"/>
  </session-factory>
 </hibernate-configuration>

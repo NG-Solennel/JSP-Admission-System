@@ -1,9 +1,11 @@
 package net.sol.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Teacher implements Serializable {
@@ -14,6 +16,8 @@ public class Teacher implements Serializable {
 	private String code;
 	private String names;
 	private EQualification qualification;
+	@ManyToMany(mappedBy="tutor")
+	private List<Course> courses;
 	
 	public Teacher() {
 		// TODO Auto-generated constructor stub

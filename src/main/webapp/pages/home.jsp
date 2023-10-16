@@ -77,10 +77,13 @@ bottom: 20px
                 <span>Application form</span>
             </a>
             <a href="<%=request.getContextPath()%>/allcourses" class="main-card">
-                <span>All Courses</span>
+                <span>Course Definition</span>
             </a>
             <a href="<%=request.getContextPath()%>/teacher" class="main-card">
                 <span>Teachers</span>
+            </a>
+             <a href="<%=request.getContextPath()%>/semester" class="main-card">
+                <span>Semesters</span>
             </a>
         </section>
             <a href="<%=request.getContextPath()%>/logout" class="main-card logout">

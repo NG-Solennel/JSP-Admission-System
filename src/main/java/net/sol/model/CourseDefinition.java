@@ -1,9 +1,11 @@
 package net.sol.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class CourseDefinition implements Serializable {
@@ -15,7 +17,8 @@ public class CourseDefinition implements Serializable {
 	private String name;
 	private String description;
 	
-	
+	@OneToMany(mappedBy="courseDefinition")
+	private List<Course> courses;
 	
 	public CourseDefinition() {
 		// TODO Auto-generated constructor stub

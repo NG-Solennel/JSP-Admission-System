@@ -22,17 +22,21 @@ public class Course {
 	private Semester semester;
 	
 	@ManyToMany
-	private List<Teacher> tutor;
+	private List<Teacher> tutors;
+	
+	@ManyToMany
+	private List<AcademicUnit> departments;
 
 	public Course() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Course(int id, CourseDefinition courseDefinition, Semester semester, List<Teacher> tutor) {
+	public Course(int id, CourseDefinition courseDefinition, Semester semester, List<Teacher> tutors,List<AcademicUnit> departments) {
 		this.id = id;
 		this.courseDefinition = courseDefinition;
 		this.semester = semester;
-		this.tutor = tutor;
+		this.tutors = tutors;
+		this.departments = departments;
 	}
 
 	public int getId() {
@@ -59,12 +63,22 @@ public class Course {
 		this.semester = semester;
 	}
 
-	public List<Teacher> getTutor() {
-		return tutor;
+	public List<Teacher> getTutors() {
+		return tutors;
 	}
 
-	public void setTutor(List<Teacher> tutor) {
-		this.tutor = tutor;
+	public void setTutors(List<Teacher> tutors) {
+		this.tutors = tutors;
 	}
+
+	public List<AcademicUnit> getDepartments() {
+		return departments;
+	}
+
+	public void setDepartments(List<AcademicUnit> departments) {
+		this.departments = departments;
+	}
+	
+	
 	
 }

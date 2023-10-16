@@ -1,22 +1,19 @@
 package net.sol.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import net.sol.model.AcademicUnit;
-import net.sol.model.CourseDefinition;
-import net.sol.model.Student;
+import net.sol.model.Course;
 
-public class CourseDefinitionDao {
-	public void saveCourseDefinition(CourseDefinition courseDefinition) {
+public class CourseDao {
+	public void saveCourse(Course course) {
         Transaction transaction = null;
         try {
         	Session session = FactoryManager.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.save(courseDefinition);
+            session.save(course);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -25,13 +22,13 @@ public class CourseDefinitionDao {
             e.printStackTrace();
         }
     }
-	public CourseDefinition getCourseDefinitionByCode(String code) {
+	public Course getCourseById(Integer id) {
         Transaction transaction = null;
         try {
         	Session session = FactoryManager.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            CourseDefinition courseDefinition = (CourseDefinition)session.get(CourseDefinition.class, code);
-            return courseDefinition;
+            Course course = (Course)session.get(Course.class, id);
+            return course;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -40,10 +37,10 @@ public class CourseDefinitionDao {
         }
 		return null;
     }
-	public List<CourseDefinition> getCourseDefinitions(){
-		List<CourseDefinition> courses;
+	public List<Course> getCourses(){
+		List<Course> courses;
 		Session session = FactoryManager.getSessionFactory().openSession();
-		 courses = session.createQuery("FROM CourseDefinition").list();
+		 courses = session.createQuery("FROM Course").list();
 	  	session.close();
 	  	return courses;		
 	}

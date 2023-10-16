@@ -286,7 +286,7 @@ input:focus,textarea:focus {
 }
 
 form label{
-margin-top: 20px
+margin-top: 20px;
 }
 button {
   width: 100%;

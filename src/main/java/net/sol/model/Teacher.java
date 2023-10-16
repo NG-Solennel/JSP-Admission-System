@@ -16,7 +16,7 @@ public class Teacher implements Serializable {
 	private String code;
 	private String names;
 	private EQualification qualification;
-	@ManyToMany(mappedBy="tutor")
+	@ManyToMany(mappedBy="tutors")
 	private List<Course> courses;
 	
 	public Teacher() {

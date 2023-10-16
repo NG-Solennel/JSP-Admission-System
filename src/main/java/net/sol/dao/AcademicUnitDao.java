@@ -76,6 +76,23 @@ public class AcademicUnitDao {
         }
 		return null;
     }
+	public List<AcademicUnit> getDepartments() {
+        Transaction transaction = null;
+        try {
+        	Session session = FactoryManager.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+           Query query = session.createQuery("from AcademicUnit where unit = :unit");
+           query.setString("unit", EAcademicUnit.DEPARTMENT.toString());
+           List<AcademicUnit> departments = query.list();
+           return departments;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+		return null;
+    }
 	public AcademicUnit getAcademicUnitById(Integer id) {
         Transaction transaction = null;
         try {

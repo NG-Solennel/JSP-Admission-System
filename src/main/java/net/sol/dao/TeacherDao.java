@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import net.sol.model.AcademicUnit;
 import net.sol.model.Teacher;
 
 public class TeacherDao {
@@ -21,6 +22,21 @@ public class TeacherDao {
             }
             e.printStackTrace();
         }
+    }
+	public Teacher getTeacherByCode(String code) {
+        Transaction transaction = null;
+        try {
+        	Session session = FactoryManager.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            Teacher teacher = (Teacher)session.get(Teacher.class, code);
+            return teacher;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+		return null;
     }
 	public List<Teacher> getAllTeachers(){
 		List<Teacher> courses;

@@ -1,6 +1,9 @@
 package net.sol.model;
 
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +23,9 @@ public class AcademicUnit {
 	@Enumerated(EnumType.STRING)
 	@Column(name="unit")
 	private EAcademicUnit unit;
+	
+	@OneToMany(mappedBy="departments")
+	private List<Course> courses;
 
 	public AcademicUnit(Integer id,Integer parent_id, String name, EAcademicUnit unit) {
 		this.id = id;

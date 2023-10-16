@@ -32,9 +32,7 @@ public class AllCoursesServlet extends HttpServlet {
 		dispatcherForm.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String courseName = request.getParameter("name");
 		String courseCode = request.getParameter("code");

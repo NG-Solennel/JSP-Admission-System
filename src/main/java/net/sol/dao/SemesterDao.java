@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import net.sol.model.AcademicUnit;
 import net.sol.model.Semester;
 
 public class SemesterDao {
@@ -21,6 +22,21 @@ public class SemesterDao {
             }
             e.printStackTrace();
         }
+    }
+	public Semester getSemesterById(Integer id) {
+        Transaction transaction = null;
+        try {
+        	Session session = FactoryManager.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            Semester semester = (Semester)session.get(Semester.class, id);
+            return semester;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+		return null;
     }
 	public List<Semester> getAllSemesters(){
 		List<Semester> semesters;

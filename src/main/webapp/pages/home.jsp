@@ -85,6 +85,9 @@ bottom: 20px
              <a href="<%=request.getContextPath()%>/semester" class="main-card">
                 <span>Semesters</span>
             </a>
+            <a href="<%=request.getContextPath()%>/courses" class="main-card">
+                <span>Courses</span>
+            </a>
         </section>
             <a href="<%=request.getContextPath()%>/logout" class="main-card logout">
                 <span>Logout</span>

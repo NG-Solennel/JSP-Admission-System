@@ -2,6 +2,7 @@ package net.sol.dao;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -41,6 +42,11 @@ public class CourseDao {
 		List<Course> courses;
 		Session session = FactoryManager.getSessionFactory().openSession();
 		 courses = session.createQuery("FROM Course").list();
+		 for (Course course : courses) {
+		        // Initialize the collections before returning
+		        Hibernate.initialize(course.getDepartments());
+		        Hibernate.initialize(course.getTutors());
+		    }
 	  	session.close();
 	  	return courses;		
 	}

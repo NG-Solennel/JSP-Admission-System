@@ -30,11 +30,18 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative
+    height: 100%
+}
+.logout{
+position: absolute;
+right: 50px;
+bottom: 20px
 }
 .menus{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    width: 50%;
+    grid-template-columns: repeat(3, 1fr);
+    width: 80%;
     height: 40vh;
     margin-top: 10vh;
     align-items: center;
@@ -70,12 +77,15 @@ main{
                 <span>Application form</span>
             </a>
             <a href="<%=request.getContextPath()%>/allcourses" class="main-card">
-                <span>Courses</span>
+                <span>All Courses</span>
             </a>
-            <a href="<%=request.getContextPath()%>/logout" class="main-card">
-                <span>Logout</span>
+            <a href="<%=request.getContextPath()%>/teacher" class="main-card">
+                <span>Teachers</span>
             </a>
         </section>
+            <a href="<%=request.getContextPath()%>/logout" class="main-card logout">
+                <span>Logout</span>
+            </a>
     </main>
 </body>
 </html>

@@ -1,3 +1,8 @@
+<%@page import="net.sol.model.Teacher"%>
+<%@page import="net.sol.model.AcademicUnit"%>
+<%@page import="net.sol.model.Course"%>
+<%@page import="java.util.List"%>
+<%@page import="net.sol.dao.CourseDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -193,6 +198,54 @@
 a{
 text-decoration: none;
 }
+.table-container{
+    box-shadow: #1FFF96 0px 2px 10px;
+    padding:1rem;
+    border-radius: 12px;
+    background-color: var(--main-bg);
+    height: 550px;
+    overflow-y: scroll;
+}
+
+
+th{
+    padding:1rem .5rem !important;   
+   font-size: 16px;
+    margin-bottom: 1rem !important;
+    background-color: var(--main-bg) !important;
+    color:var(--text-color) !important;
+    font-weight: 600 !important;
+    text-align: center;
+}
+.listings {
+	max-width: 100px;
+	font-size: 12px
+}
+
+th:last-child  {
+   border-top-right-radius: 12px;
+}
+
+td{
+text-align: center;
+font-size: 14px
+}
+
+ th:first-child  {
+   border-top-left-radius: 12px;
+}
+
+ tbody{
+    background-color: var(--main-bg);
+ }
+
+
+/* Changing TH bottom border color*/
+.table>:not(:last-child)>:last-child>* {
+     border-bottom-color: var(--primary-color) !important;
+    
+}
+
     </style>
 </head>
 <body>
@@ -207,6 +260,72 @@ text-decoration: none;
 	    	<a href="<%=request.getContextPath()%>/addcourses" class="main-card">
                 <span>Add course</span>
             </a>
+            <div class="table-container mt-5">
+            <div class="mb-2">
+              <h2 class="">Courses</h2>
+              <small class="text-secondary"
+                >View all added courses.</small
+              >
+            </div>
+            <table id="mytable" class="table align-middle mb-0 bg-white">
+              <thead class="bg-light">
+                <tr class="header-row">
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Semester</th>
+                  <th>Departments</th>
+                  <th>Tutors</th>
+                  <th>Credits</th>
+                </tr>
+              </thead>
+              <tbody>
+             <%
+             CourseDao courseDao = new CourseDao();
+             List<Course> courses = courseDao.getCourses();
+             for(Course course:courses){
+             %>
+                <tr>
+                  <td>        
+                  <%= course.getId() %>
+                  </td>
+                  <td>
+                    <%= course.getCourseDefinition().getName() %>
+                  </td>
+                  
+                  
+                  <td><%= course.getSemester().getName() %></td>
+                  <%
+                  List<AcademicUnit> departments = course.getDepartments();
+                  StringBuilder stringBuilder = new StringBuilder();
+
+                  for (AcademicUnit department : departments) {
+                      if (stringBuilder.length() > 0) {
+                          stringBuilder.append(",");
+                      }
+                      stringBuilder.append(department.getName());
+                  }
+                  %>
+                  <td class="listings"><%= stringBuilder.toString() %></td>
+                   <%
+                  List<Teacher> tutors = course.getTutors();
+                  StringBuilder tutorStr = new StringBuilder();
+
+                  for (Teacher tutor : tutors) {
+                      if (tutorStr.length() > 0) {
+                          tutorStr.append(" && ");
+                      }
+                      tutorStr.append(tutor.getNames());
+                  }
+                  %>
+                  <td class="listing"><%=tutorStr.toString() %></td>
+                  <td> 
+                     <%= course.getCredits() %>
+                  </td>
+                </tr>
+                <%} %>
+              </tbody>
+            </table>
+          </div>
 	  </div>
 	</div>
 </div>

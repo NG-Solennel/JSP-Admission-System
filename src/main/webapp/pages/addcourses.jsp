@@ -14,7 +14,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Add Course</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -51,6 +51,10 @@
         color: var(--text-color);
         font-family: "Open Sans", sans-serif;
         font-family: "Poppins", sans-serif;
+      }
+
+body {
+        background-color: var(--main-bg) !important;
       }
 
       .main {
@@ -266,7 +270,9 @@
                 <option value="<%=semester.getId()%>"><%=semester.getName() %>/<%=semester.getAcademicYear()%></option>
                 <%}%>
               </select>
-              <button>Add Teacher</button>
+              <label for="credits">Number of credits</label>
+			 <input type="number" name="credits" value="3" min="1" max="5" id="credits"/>
+              <button type="submit">Add Course</button>
             </form>
           </div>
         </div>
@@ -320,6 +326,15 @@
 
       form.addEventListener("submit",(e)=>{
         e.preventDefault();
+        
+        const data = {
+        		courseDefinitionId: courseSelect.value,
+        		credits: document.getElementById("credits").value,
+        		semesterId: semesterSelect.value,
+        		teacherArray: teachers,
+        		departmentArray: departments
+        	}
+        
         if(teachers.length === 0){
           teacherError.style.display = "block"
         }else{
@@ -330,15 +345,20 @@
         }else{
           departmentError.style.display = "none"
         }
+        console.log(teachers)
+        console.log(departments)
+        if(teachers.length !== 0 && departments.length !== 0){        	
         fetch("addcourses",{
         	method: "POST",
         	body: JSON.stringify({
         		courseDefinitionId: courseSelect.value,
+        		credits: document.getElementById("credits").value,
         		semesterId: semesterSelect.value,
         		teacherArray: teachers,
         		departmentArray: departments
         	})
         })
+        }
       })
 
     </script>

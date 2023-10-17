@@ -77,5 +77,12 @@ public class Semester {
 		}
 		this.academicYear =previousYear.toString() + "-" + year.toString();
 	}
+	public List<Course> getCourses() {
+		return courses;
+	}
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+	
 	
 }

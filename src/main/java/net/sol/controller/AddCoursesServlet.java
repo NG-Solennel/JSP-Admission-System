@@ -47,8 +47,6 @@ public class AddCoursesServlet extends HttpServlet {
 	            sb.append(line);
 	        }
 	        String body = sb.toString();
-	        
-	        // parse JSON
 	        JSONObject jsonObject = new JSONObject(body);
 	        String semesterId = jsonObject.getString("semesterId");
 	        String courseDefinitionCode = jsonObject.getString("courseDefinitionId");
@@ -78,7 +76,6 @@ public class AddCoursesServlet extends HttpServlet {
 	       List<AcademicUnit> departments = new ArrayList<>();
 	       for(JSONObject departmentObj: departmentList) {
 	    	   Integer departmentId = Integer.parseInt(departmentObj.getString("id"));
-	    	   System.out.println(departmentId);
 	    	   AcademicUnit department = academicUnitDao.getAcademicUnitById(departmentId);
 	    	   departments.add(department);
 	       }
@@ -87,8 +84,10 @@ public class AddCoursesServlet extends HttpServlet {
 	      course.setDepartments(departments);
 	      course.setSemester(semester);
 	      course.setTutors(tutors);
-	      courseDao.saveCourse(course);
-	      response.sendRedirect("allcourses");
+	      course.setCredits(Integer.parseInt(jsonObject.getString("credits")));
+	      RequestDispatcher dispatcherForm = request.getRequestDispatcher("./pages/courses.jsp");
+			dispatcherForm.forward(request, response);
+			courseDao.saveCourse(course);
 	    }catch(Exception e) {
 	    	e.printStackTrace();
 	    }

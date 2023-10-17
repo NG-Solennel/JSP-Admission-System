@@ -18,6 +18,8 @@ import net.sol.dao.AcademicUnitDao;
 import net.sol.dao.StudentDao;
 import net.sol.model.AcademicUnit;
 import net.sol.model.Student;
+import net.sol.util.Mail;
+import net.sol.util.UtilFunctions;
 
 @WebServlet("/submit-form")
 @MultipartConfig(maxFileSize = 16177215)
@@ -77,6 +79,13 @@ public class FormServlet extends HttpServlet {
 		
 		StudentDao studentDao = new StudentDao();
 		studentDao.saveStudent(student);
+		
+		try {
+			String message = UtilFunctions.getMessage("applied", name);
+			Mail.sendMail(email, message, "Applied Successfully");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("./pages/form.jsp");
 		dispatcher.forward(request, response);
 		

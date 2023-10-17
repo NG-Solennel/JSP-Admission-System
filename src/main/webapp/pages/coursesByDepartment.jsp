@@ -1,3 +1,4 @@
+<%@page import="net.sol.dao.AcademicUnitDao"%>
 <%@page import="net.sol.model.Teacher"%>
 <%@page import="net.sol.model.AcademicUnit"%>
 <%@page import="net.sol.model.Course"%>
@@ -149,6 +150,7 @@
         color: #1fff96;
         border: none;
         margin: 10px 0;
+        max-width: fit-content
       }
 
       .form-select:focus {
@@ -268,12 +270,21 @@ display: flex;
                 <span>Add course</span>
             </a>
             <div class="filters">
-            <a href="<%=request.getContextPath()%>/coursesByDepartment" class="main-card">
-                <span>By department</span>
-            </a>
-            <a href="<%=request.getContextPath()%>/addcourses" class="main-card">
-                <span>By Semester</span>
-            </a>
+             <select
+                name="department-select"
+                class="form-select select"
+                id="department-select"
+              >
+              <%
+              AcademicUnitDao academicUnitDao = new AcademicUnitDao();
+              List<AcademicUnit> departments = academicUnitDao.getDepartments();
+            		 for(AcademicUnit department:departments){
+              %>
+                <option value="<%=department.getId()%>-<%=department.getName()%>">
+                  <%=department.getName() %>
+                </option>
+                <%}%>
+              </select>
             </div>
 	    	</div>
             <div class="table-container mt-5">
@@ -289,40 +300,27 @@ display: flex;
                   <th>ID</th>
                   <th>Name</th>
                   <th>Semester</th>
-                  <th>Departments</th>
                   <th>Tutors</th>
                   <th>Credits</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="table-body">
              <%
-             CourseDao courseDao = new CourseDao();
-             List<Course> courses = courseDao.getCourses();
+             AcademicUnit department = academicUnitDao.getAcademicUnitById(13);
+             List<Course> courses = department.getCourses();
              for(Course course:courses){
              %>
-                <tr>
+                <tr class="table-row">
                   <td>        
-                  <%= course.getId() %>
+               		<%=course.getId() %>
                   </td>
                   <td>
-                    <%= course.getCourseDefinition().getName() %>
+                    <%=course.getCourseDefinition().getName() %>
                   </td>
                   
                   
-                  <td><%= course.getSemester().getName() %></td>
-                  <%
-                  List<AcademicUnit> departments = course.getDepartments();
-                  StringBuilder stringBuilder = new StringBuilder();
-
-                  for (AcademicUnit department : departments) {
-                      if (stringBuilder.length() > 0) {
-                          stringBuilder.append(",");
-                      }
-                      stringBuilder.append(department.getName());
-                  }
-                  %>
-                  <td class="listings"><%= stringBuilder.toString() %></td>
-                   <%
+                  <td><%=course.getSemester().getName() %></td>
+                    <%
                   List<Teacher> tutors = course.getTutors();
                   StringBuilder tutorStr = new StringBuilder();
 
@@ -333,17 +331,49 @@ display: flex;
                       tutorStr.append(tutor.getNames());
                   }
                   %>
-                  <td class="listing"><%=tutorStr.toString() %></td>
+                  <td class="listings"><%=tutorStr.toString() %></td>
+                   
+                 
                   <td> 
-                     <%= course.getCredits() %>
+                   <%=course.getCredits() %>
                   </td>
                 </tr>
-                <%} %>
+          		<%} %>
               </tbody>
             </table>
           </div>
 	  </div>
 	</div>
 </div>
+<script>
+const select = document.getElementById("department-select")
+select.addEventListener("input",()=>{
+	const param = new URLSearchParams();
+	param.append("id",select.value.split("-")[0]);
+	fetch("filterByDepartment?"+param).then(res=>res.json()).then(res=>{
+		const tbody = document.getElementById("table-body");
+		tbody.innerHTML =""
+		res.forEach(course=>{
+		const row = document.createElement('tr')
+		const data1 = document.createElement("td")
+		const data2 = document.createElement("td")
+		const data3= document.createElement("td")
+		const data4 = document.createElement("td")
+		const data5 = document.createElement("td")
+		data1.textContent = course.id
+		data2.textContent = course.courseDefinition.name
+		data3.textContent = course.semester.name
+		data4.textContent = course.tutors[0].name
+		data5.textContent = course.credits
+		row.append(data1)
+		row.append(data2)
+		row.append(data3)
+		row.append(data4)
+		row.append(data5)
+		tbody.append(row)
+		})
+	})
+})
+</script>
 </body>
 </html>

@@ -70,11 +70,11 @@ bottom: 20px
     </header>
     <main>
         <section class="menus">
-            <a href="<%=request.getContextPath()%>/applications" class="main-card">
-                <span>View applications</span>
-            </a>
             <a href="<%=request.getContextPath()%>/submit-form" class="main-card">
-                <span>Application form</span>
+                <span>Students</span>
+            </a>
+            <a href="<%=request.getContextPath()%>/student-registration" class="main-card">
+                <span>Student Registration</span>
             </a>
             <a href="<%=request.getContextPath()%>/allcourses" class="main-card">
                 <span>Course Definition</span>

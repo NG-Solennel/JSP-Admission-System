@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.sol.dao.StudentDao;
-import net.sol.model.Student;
+import net.sol.model.Learner;
 import net.sol.util.Mail;
 import net.sol.util.UtilFunctions;
 
@@ -29,7 +29,7 @@ public class ReplyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.valueOf(request.getParameter("id"));
 		String answer = request.getParameter("answer");
-		Student student = studentDao.getStudentById(id);
+		Learner student = studentDao.getStudentById(id);
 		System.out.println(answer);
 		String message = UtilFunctions.getMessage(answer, student.getName());
 	

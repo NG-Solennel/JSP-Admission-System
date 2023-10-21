@@ -17,7 +17,7 @@ import jakarta.servlet.http.Part;
 import net.sol.dao.AcademicUnitDao;
 import net.sol.dao.StudentDao;
 import net.sol.model.AcademicUnit;
-import net.sol.model.Student;
+import net.sol.model.Learner;
 import net.sol.util.Mail;
 import net.sol.util.UtilFunctions;
 
@@ -60,18 +60,14 @@ public class FormServlet extends HttpServlet {
 		}
 		char[] charArray = writer.toCharArray();
 		AcademicUnitDao academicUnitDao = new AcademicUnitDao();	
-		AcademicUnit program = academicUnitDao.getAcademicUnitById(programParam);
-		AcademicUnit faculty = academicUnitDao.getAcademicUnitById(facultyParam);
 		AcademicUnit department = academicUnitDao.getAcademicUnitById(departmentParam);
-		Student student = new Student();
+		Learner student = new Learner();
 		student.setName(name);
 		student.setEmail(email);
 		student.setGuardianName(guardianName);
 		student.setGuardianEmail(guardianEmail);
 		student.setAge(age);
-		student.setProgram(program.getName());
-		student.setFaculty(faculty.getName());
-		student.setDepartment(department.getName());
+		student.setDepartment(department);
 		student.setStatus(status);
 		student.setSuggestions(suggestions);
 		student.setPhoto(photoBytes);

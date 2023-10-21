@@ -290,7 +290,24 @@ fieldset small {
     padding: 8% 0;
   }
 }
-    
+    .add-student {
+position: absolute;
+right: 200px
+}
+     .main-card{
+    box-shadow: #1FFF96 0px 2px 10px;  
+    width: 10vw;
+    height: 5vh;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1FFF96;
+    transition: all 0.3s ease-in;
+}
+a{
+text-decoration: none;
+}
     </style>
   </head>
   <body>
@@ -298,12 +315,15 @@ fieldset small {
         <a href="<%=request.getContextPath()%>/home" class="back">
            Back
            </a>  
+           <a href="<%=request.getContextPath()%>/students" class="main-card add-student">
+                <span>View Students</span>
+            </a>
       <div class="row">
         <div class="col-xs-12 col-lg-offset-3 col-lg-6">
           <div class="m-b-md text-center">
-            <h1 id="title">Admission Form</h1>
+            <h1 id="title">Add a student</h1>
             <p id="description" class="description" class="text-center">
-              Fill in this form to join our institution
+              Add a new student to the university
             </p>
           </div>
           <form

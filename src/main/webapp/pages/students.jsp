@@ -1,7 +1,9 @@
+<%@page import="net.sol.model.Learner"%>
+<%@page import="net.sol.model.AcademicUnit"%>
+<%@page import="net.sol.dao.AcademicUnitDao"%>
 <%@page import="java.util.Base64"%>
 <%@page import="net.sol.dao.StudentDao"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="net.sol.model.Student"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -149,11 +151,6 @@ text-align: center;
    border-top-left-radius: 12px;
 }
 
-/* //Removes border from last table row */
-
- tr td:last-child{
-    text-align: right;
- }
 
  tbody{
     background-color: var(--main-bg);
@@ -268,9 +265,9 @@ a:hover{
         </div>
           <div class="table-container mt-5">
             <div class="mb-2">
-              <h2 class="">Applications</h2>
+              <h2 class="">Students</h2>
               <small class="text-secondary"
-                >View all applicants details.</small
+                >View all students.</small
               >
             </div>
             <table id="mytable" class="table align-middle mb-0 bg-white">
@@ -282,16 +279,15 @@ a:hover{
                   <th>Department</th>
                   <th>Faculty</th>
                   <th>Program</th>
-                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
               <%
-              List<Student> students = new ArrayList<Student>();
+              List<Learner> students = new ArrayList<Learner>();
                                           StudentDao dao = new StudentDao();
                                           students = dao.getAllStudents();
                                           
-                                          for (Student student : students) {
+                                          for (Learner student : students) {
               %>
                 <tr>
                   <td>
@@ -318,27 +314,19 @@ a:hover{
                   <td>
                     <p class="fw-bold fw-normal mb-1"><%=student.getEmail()%></p>
                   </td>
+                  <%
+                  AcademicUnitDao academicUnitDao = new AcademicUnitDao();
+                  AcademicUnit faculty = academicUnitDao.getAcademicUnitById(student.getDepartment().getParentId());
+                  AcademicUnit program = academicUnitDao.getAcademicUnitById(faculty.getParentId());
+                  %>
                   
-                  
-                  <td><%=student.getFaculty()%></td>
-                  <td><%=student.getDepartment() %></td>
+                  <td><%=student.getDepartment().getName() %></td>
+                  <td><%=faculty.getName()%></td>
                   
                   <td>
                     <span class="badge badge-success rounded-pill d-inline"
-                      ><%=student.getProgram()%></span
+                      ><%=program.getName()%></span
                     >
-                  </td>
-                   <td style="text-align: center;">
-                    <div
-                      class="btn btn-primary btn-sm btn-rounded text-primary"
-                    >
-                      <a href="<%=request.getContextPath()%>/reply?id=<%=student.getId()%>&answer=<%="accept"%>">Accept</a>
-                    </div>
-                    <div
-                      class="btn btn-danger btn-sm btn-rounded text-primary" 
-                    >
-                      <a href="<%=request.getContextPath()%>/reply?id=<%=student.getId()%>&answer=<%="reject"%>">Reject</a>
-                    </div>
                   </td>
                 </tr>
                 <%}%>

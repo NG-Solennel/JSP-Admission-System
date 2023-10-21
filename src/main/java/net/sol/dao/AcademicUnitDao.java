@@ -40,14 +40,14 @@ public class AcademicUnitDao {
         }
 		return null;
     }
-	public List<AcademicUnit> getFacultiesByProgramme(Integer parent_id) {
+	public List<AcademicUnit> getFacultiesByProgramme(Integer parentId) {
         Transaction transaction = null;
         try {
         	Session session = FactoryManager.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-           Query query = session.createQuery("from AcademicUnit where unit = :unit and parent_id = :parent_id");
+           Query query = session.createQuery("from AcademicUnit where unit = :unit and parentId = :parentId");
            query.setString("unit", EAcademicUnit.FACULTY.toString());
-           query.setInteger("parent_id", parent_id);
+           query.setInteger("parentId", parentId);
            List<AcademicUnit> faculties = query.list();
            return faculties;
         } catch (Exception e) {
@@ -58,14 +58,14 @@ public class AcademicUnitDao {
         }
 		return null;
     }
-	public List<AcademicUnit> getDepartmentsByFaculty(Integer parent_id) {
+	public List<AcademicUnit> getDepartmentsByFaculty(Integer parentId) {
         Transaction transaction = null;
         try {
         	Session session = FactoryManager.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-           Query query = session.createQuery("from AcademicUnit where unit = :unit and parent_id = :parent_id");
+           Query query = session.createQuery("from AcademicUnit where unit = :unit and parentId = :parentId");
            query.setString("unit", EAcademicUnit.DEPARTMENT.toString());
-           query.setInteger("parent_id", parent_id);
+           query.setInteger("parentId", parentId);
            List<AcademicUnit> departments = query.list();
            return departments;
         } catch (Exception e) {

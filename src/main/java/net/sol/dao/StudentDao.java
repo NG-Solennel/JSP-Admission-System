@@ -6,10 +6,11 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import net.sol.model.Student;
+import net.sol.model.Learner;
+
 
 public class StudentDao {
-	public void saveStudent(Student student) {
+	public void saveStudent(Learner student) {
         Transaction transaction = null;
         try {
         	Session session = FactoryManager.getSessionFactory().openSession();
@@ -24,19 +25,19 @@ public class StudentDao {
         }
     }
 	
-	public List<Student> getAllStudents(){
-		List<Student> applicants = new ArrayList<Student>();
+	public List<Learner> getAllStudents(){
+		List<Learner> applicants = new ArrayList<Learner>();
 		Session session = FactoryManager.getSessionFactory().openSession();
-		 applicants = session.createQuery("FROM Student").list();
+		 applicants = session.createQuery("FROM Learner").list();
 	  	session.close();
 	  	return applicants;		
 	}
 	
-	public Student getStudentById(int Id) {
-		Student applicant = null;
+	public Learner getStudentById(int Id) {
+		Learner applicant = null;
 		try {
 			Session session = FactoryManager.getSessionFactory().openSession();
-			applicant = (Student) session.get(Student.class, Id);
+			applicant = (Learner) session.get(Learner.class, Id);
 			return applicant;
 		} catch (Exception e) {
 			e.printStackTrace();

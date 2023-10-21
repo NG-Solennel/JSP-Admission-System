@@ -9,12 +9,13 @@
   <property name="hibernate.connection.password">KING2000</property>
   <property name="hibernate.hbm2ddl.auto">update</property>
   <mapping class="net.sol.model.User"/>
-  <mapping class="net.sol.model.Student"/>
+  <mapping class="net.sol.model.Learner"/>
   <mapping class="net.sol.model.Admin"/>
   <mapping class="net.sol.model.AcademicUnit"/>
   <mapping class="net.sol.model.CourseDefinition"/>
   <mapping class="net.sol.model.Teacher"/>
   <mapping class="net.sol.model.Semester"/>
   <mapping class="net.sol.model.Course"/>
+  <mapping class="net.sol.model.StudentRegistration"/>
  </session-factory>
 </hibernate-configuration>

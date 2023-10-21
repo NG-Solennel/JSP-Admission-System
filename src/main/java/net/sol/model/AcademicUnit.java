@@ -31,6 +31,9 @@ public class AcademicUnit {
 	
 	@ManyToMany(mappedBy="departments")
 	private List<Course> courses;
+	
+	@OneToMany(mappedBy="department")
+	private List<Learner> students;
 
 	public AcademicUnit(Integer id,Integer parent_id, String name, EAcademicUnit unit) {
 		this.id = id;

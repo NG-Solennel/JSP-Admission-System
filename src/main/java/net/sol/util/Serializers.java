@@ -77,6 +77,7 @@ public class Serializers {
             JsonObject jsonObject = new JsonObject();
             JsonObject semesterObj = new JsonObject();
             JsonObject studentObj = new JsonObject();
+            JsonObject departmentObj = new JsonObject();
             jsonObject.addProperty("id", stReg.getId());
             jsonObject.addProperty("date", stReg.getDate().toString()); 
             Semester semester = stReg.getSemester();
@@ -94,6 +95,11 @@ public class Serializers {
            	studentObj.addProperty("email",student.getEmail());
            	studentObj.addProperty("program", student.getProgram().getName());
            }
+           AcademicUnit department = stReg.getDepartment();
+           if(department != null) {            	
+              	departmentObj.addProperty("name", department.getName());
+              	departmentObj.addProperty("id",department.getId());
+              }
            jsonObject.add("student", studentObj);
            jsonObject.add("semester", semesterObj);
             return jsonObject;

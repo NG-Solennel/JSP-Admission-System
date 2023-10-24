@@ -68,6 +68,11 @@ public class Semester implements Serializable {
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
-	
+	public List<StudentRegistration> getRegistrations() {
+		return registrations;
+	}
+	public void setRegistrations(List<StudentRegistration> registrations) {
+		this.registrations = registrations;
+	}
 	
 }

@@ -251,8 +251,26 @@ a{
 a:hover{
     color:white 
 }
+   .main-card{
+    box-shadow: #1FFF96 0px 2px 10px;  
+    width: 10vw;
+    height: 5vh;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1FFF96;
+    transition: all 0.3s ease-in;
+}
+.main-card:hover{
+    scale: 1.1;
+}
+.filters{ 
+display: flex;
+ gap: 20px
+}
   </style>
-    <title>Applications</title>
+    <title>Students</title>
   </head>
   <body>
     <div class="main">
@@ -261,7 +279,15 @@ a:hover{
         <div class="back-container">
       <a href="<%=request.getContextPath()%>/home" class="back">
            Back
-           </a>         
+           </a>  
+           <div class="filters">
+            <a href="<%=request.getContextPath()%>/studentsBySemester" class="main-card">
+                <span>By semester</span>
+            </a>
+            <a href="<%=request.getContextPath()%>/studentsByDepartment" class="main-card">
+                <span>By department</span>
+            </a>
+            </div>        
         </div>
           <div class="table-container mt-5">
             <div class="mb-2">

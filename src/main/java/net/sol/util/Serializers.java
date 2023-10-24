@@ -7,8 +7,10 @@ import com.google.gson.JsonSerializer;
 
 import net.sol.model.AcademicUnit;
 import net.sol.model.CourseDefinition;
+import net.sol.model.Learner;
 import net.sol.model.Semester;
 import net.sol.model.StudentCourse;
+import net.sol.model.StudentRegistration;
 import net.sol.model.Teacher;
 
 import com.google.gson.JsonObject;
@@ -64,6 +66,36 @@ public class Serializers {
             jsonObject.addProperty("name", academicUnit.getName());
             jsonObject.addProperty("id", academicUnit.getId());     
             // Add other properties as needed
+            return jsonObject;
+        }
+    }
+    
+    public static class StudentRegistrationSerializer implements JsonSerializer<StudentRegistration> {
+        @Override
+        public JsonElement serialize(StudentRegistration stReg, Type typeOfSrc, JsonSerializationContext context) {
+            // Define how to serialize Teacher here
+            JsonObject jsonObject = new JsonObject();
+            JsonObject semesterObj = new JsonObject();
+            JsonObject studentObj = new JsonObject();
+            jsonObject.addProperty("id", stReg.getId());
+            jsonObject.addProperty("date", stReg.getDate().toString()); 
+            Semester semester = stReg.getSemester();
+            if(semester != null) {            	
+            	semesterObj.addProperty("name", semester.getName());
+            	semesterObj.addProperty("id", semester.getId());
+            	semesterObj.addProperty("startDate", semester.getStartDate().toString());
+            	semesterObj.addProperty("endDate", semester.getEndDate().toString());
+            }
+           Learner student = stReg.getStudent();
+           if(student != null) {            	
+           	studentObj.addProperty("name", student.getName());
+           	studentObj.addProperty("id", student.getId());
+           	studentObj.addProperty("photo", student.getPhoto().toString());
+           	studentObj.addProperty("email",student.getEmail());
+           	studentObj.addProperty("program", student.getProgram().getName());
+           }
+           jsonObject.add("student", studentObj);
+           jsonObject.add("semester", semesterObj);
             return jsonObject;
         }
     }

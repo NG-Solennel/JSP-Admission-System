@@ -276,8 +276,6 @@ a:hover{
                   <th>ID</th>
                   <th>Name</th>
                   <th>Email</th>
-                  <th>Department</th>
-                  <th>Faculty</th>
                   <th>Program</th>
                 </tr>
               </thead>
@@ -314,18 +312,12 @@ a:hover{
                   <td>
                     <p class="fw-bold fw-normal mb-1"><%=student.getEmail()%></p>
                   </td>
-                  <%
-                  AcademicUnitDao academicUnitDao = new AcademicUnitDao();
-                  AcademicUnit faculty = academicUnitDao.getAcademicUnitById(student.getDepartment().getParentId());
-                  AcademicUnit program = academicUnitDao.getAcademicUnitById(faculty.getParentId());
-                  %>
-                  
-                  <td><%=student.getDepartment().getName() %></td>
-                  <td><%=faculty.getName()%></td>
+
+              
                   
                   <td>
                     <span class="badge badge-success rounded-pill d-inline"
-                      ><%=program.getName()%></span
+                      ><%=student.getProgram().getName()%></span
                     >
                   </td>
                 </tr>

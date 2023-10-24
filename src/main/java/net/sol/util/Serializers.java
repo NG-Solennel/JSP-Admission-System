@@ -1,5 +1,6 @@
 package net.sol.util;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
@@ -7,10 +8,12 @@ import com.google.gson.JsonSerializer;
 import net.sol.model.AcademicUnit;
 import net.sol.model.CourseDefinition;
 import net.sol.model.Semester;
+import net.sol.model.StudentCourse;
 import net.sol.model.Teacher;
 
 import com.google.gson.JsonObject;
 import java.lang.reflect.Type;
+import java.util.List;
 
 public class Serializers {
 
@@ -46,7 +49,6 @@ public class Serializers {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("name", semester.getName());
             jsonObject.addProperty("id", semester.getId());
-            jsonObject.addProperty("academicYear", semester.getAcademicYear());
             jsonObject.addProperty("startDate", semester.getStartDate().toString());
             jsonObject.addProperty("endDate", semester.getEndDate().toString());
             
@@ -61,6 +63,53 @@ public class Serializers {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("name", academicUnit.getName());
             jsonObject.addProperty("id", academicUnit.getId());     
+            // Add other properties as needed
+            return jsonObject;
+        }
+    }
+    public static class StudentCourseSerializer implements JsonSerializer<StudentCourse> {
+        @Override
+        public JsonElement serialize(StudentCourse studentCourse, Type typeOfSrc, JsonSerializationContext context) {
+            // Define how to serialize Teacher here
+            JsonObject jsonObject = new JsonObject();
+            JsonObject course = new JsonObject();
+            JsonObject semesterObj = new JsonObject();
+            JsonObject courseDefObj = new JsonObject();
+            JsonObject stRegObj = new JsonObject();
+            
+            Semester semester = studentCourse.getCourse().getSemester();
+            if(semester != null) {            	
+            	semesterObj.addProperty("name", semester.getName());
+            	semesterObj.addProperty("id", semester.getId());
+            	semesterObj.addProperty("startDate", semester.getStartDate().toString());
+            	semesterObj.addProperty("endDate", semester.getEndDate().toString());
+            }
+            course.add("semester", semesterObj);
+            CourseDefinition courseDefinition = studentCourse.getCourse().getCourseDefinition();
+            courseDefObj.addProperty("code", courseDefinition.getCode());
+            courseDefObj.addProperty("name", courseDefinition.getName());
+            courseDefObj.addProperty("description", courseDefinition.getDescription());
+            course.add("courseDefinition", courseDefObj);
+            course.addProperty("id",studentCourse.getCourse().getId());
+            List<Teacher> tutors = studentCourse.getCourse().getTutors();
+            JsonArray tutorsArr = new JsonArray();
+            for(Teacher teacher:tutors) {
+            	JsonObject tutorObj = new JsonObject();            	
+            	tutorObj.addProperty("name", teacher.getNames());
+            	tutorObj.addProperty("qualification", teacher.getQualification().toString());
+            	tutorObj.addProperty("code", teacher.getCode());
+            	tutorsArr.add(tutorObj);
+            }
+            course.add("tutors", tutorsArr);
+            stRegObj.addProperty("date", studentCourse.getStudentRegistration().getDate().toString());
+            stRegObj.addProperty("status", studentCourse.getStudentRegistration().getStatus().toString());
+            
+            
+            jsonObject.addProperty("credits", studentCourse.getCredits() );
+            jsonObject.addProperty("results", studentCourse.getResults());
+            jsonObject.add("course", course);
+            jsonObject.add("studentRegistration", stRegObj);
+            
             // Add other properties as needed
             return jsonObject;
         }

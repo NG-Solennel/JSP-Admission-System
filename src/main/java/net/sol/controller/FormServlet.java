@@ -36,8 +36,6 @@ public class FormServlet extends HttpServlet {
 		int age = Integer.parseInt(request.getParameter("age"));
 		int programParam = Integer.parseInt(request.getParameter("program"));
 		String status = request.getParameter("status");
-		int facultyParam = Integer.parseInt(request.getParameter("admission-form-faculty"));
-		int departmentParam = Integer.parseInt(request.getParameter("admission-form-department"));
 		String suggestions = request.getParameter("admission-form-suggestions");
 		Part diplomaPart = request.getPart("diploma");
 		Part photoPart = request.getPart("photo");
@@ -60,15 +58,15 @@ public class FormServlet extends HttpServlet {
 		}
 		char[] charArray = writer.toCharArray();
 		AcademicUnitDao academicUnitDao = new AcademicUnitDao();	
-		AcademicUnit department = academicUnitDao.getAcademicUnitById(departmentParam);
+		AcademicUnit program = academicUnitDao.getAcademicUnitById(programParam);
 		Learner student = new Learner();
 		student.setName(name);
 		student.setEmail(email);
 		student.setGuardianName(guardianName);
 		student.setGuardianEmail(guardianEmail);
 		student.setAge(age);
-		student.setDepartment(department);
 		student.setStatus(status);
+		student.setProgram(program);
 		student.setSuggestions(suggestions);
 		student.setPhoto(photoBytes);
 		student.setDiploma(charArray);

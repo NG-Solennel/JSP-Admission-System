@@ -1,43 +1,43 @@
 package net.sol.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.google.gson.annotations.Expose;
 
 @Entity
-public class Course {
+public class Course implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	@Expose
     private int id;
 	
 	@ManyToOne
-	@Expose
 	private CourseDefinition courseDefinition;
 	
 	@ManyToOne
-	@Expose
 	private Semester semester;
 	
 	@ManyToMany
-	@Expose
 	private List<Teacher> tutors;
 	
 	@ManyToMany
-	@Expose
 	private List<AcademicUnit> departments;
 	
-	@Column(name = "credits", columnDefinition = "INT DEFAULT 3")
-	private int credits;
-
+	@OneToMany(mappedBy="course")
+	private List<StudentCourse> studentCourses;
+	
+	
 	public Course() {
 		// TODO Auto-generated constructor stub
 	}
@@ -48,7 +48,6 @@ public class Course {
 		this.semester = semester;
 		this.tutors = tutors;
 		this.departments = departments;
-		this.credits = credits;
 	}
 
 	public int getId() {
@@ -91,14 +90,12 @@ public class Course {
 		this.departments = departments;
 	}
 
-	public int getCredits() {
-		return credits;
+	public List<StudentCourse> getStudentCourses() {
+		return studentCourses;
 	}
 
-	public void setCredits(int credits) {
-		this.credits = credits;
-	}
-	
-	
+	public void setStudentCourses(List<StudentCourse> studentCourses) {
+		this.studentCourses = studentCourses;
+	}	
 	
 }

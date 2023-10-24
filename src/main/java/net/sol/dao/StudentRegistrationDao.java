@@ -2,9 +2,13 @@ package net.sol.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import net.sol.model.Learner;
+import net.sol.model.Semester;
+import net.sol.model.StudentCourse;
 import net.sol.model.StudentRegistration;
 
 public class StudentRegistrationDao {
@@ -43,5 +47,18 @@ public class StudentRegistrationDao {
 		 registrations = session.createQuery("FROM StudentRegistration").list();
 	  	session.close();
 	  	return registrations;		
+	}
+	
+	public boolean studentRegistrationExists (Semester semester, Learner student) {
+		Session session = FactoryManager.getSessionFactory().openSession();
+		Query query = session.createQuery("FROM StudentRegistration C WHERE C.student = :student AND C.semester = :semester");
+		query.setParameter("student", student);
+		query.setParameter("semester", semester);
+		List<StudentRegistration> registrations = query.list();
+		if(registrations.size() > 0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

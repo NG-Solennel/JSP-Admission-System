@@ -4,9 +4,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,8 +15,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 @Entity
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class AcademicUnit {
+public class AcademicUnit implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -32,8 +31,6 @@ public class AcademicUnit {
 	@ManyToMany(mappedBy="departments")
 	private List<Course> courses;
 	
-	@OneToMany(mappedBy="department")
-	private List<Learner> students;
 
 	public AcademicUnit(Integer id,Integer parent_id, String name, EAcademicUnit unit) {
 		this.id = id;
@@ -45,7 +42,6 @@ public class AcademicUnit {
 	public AcademicUnit() {
 
 	}
-	@JsonProperty("unit_id")
 	public int getId() {
 		return id;
 	}
@@ -61,7 +57,6 @@ public class AcademicUnit {
 	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
 	}
-	@JsonProperty("name")
 	public String getName() {
 		return name;
 	}

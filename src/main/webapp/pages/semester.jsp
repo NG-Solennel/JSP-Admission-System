@@ -1,7 +1,7 @@
 <%@page import="net.sol.model.Semester"%>
 <%@page import="net.sol.dao.SemesterDao"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="net.sol.model.Student"%>
+<%@page import="net.sol.model.Learner"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -308,6 +308,17 @@ button:focus {
   border: none;
   box-shadow: #1FFF96 0px 2px 10px;
 }
+.form-select{
+background: #3b3b3b;
+color: #1FFF96;
+border: none;
+  margin: 10px 0;
+}
+
+.form-select:focus {
+	box-shadow: #1FFF96 0px 2px 10px;
+	border: none
+}
   </style>
     <title>Semester</title>
   </head>
@@ -357,7 +368,20 @@ button:focus {
                   
                   <td><p class="fw-bold fw-normal mb-1"><%=semester.getStartDate() %></p></td>
                   <td><p class="fw-bold fw-normal mb-1"><%=semester.getEndDate() %></p></td>
-                  <td><p class="fw-bold fw-normal mb-1"><%=semester.getAcademicYear() %></p></td>
+                  <%
+                  String academicYear;
+                  int month = semester.getStartDate().getMonthValue();
+					Integer year = semester.getStartDate().getYear();
+					Integer previousYear = year - 1;
+					Integer nextYear = year + 1;
+					if(month > 8){
+						academicYear = year.toString() + "-" + nextYear.toString();
+					}else{
+						academicYear = previousYear.toString()+"-"+ year.toString();
+					}
+					
+		%>
+                  <td><p class="fw-bold fw-normal mb-1"><%=academicYear %></p></td>
                 </tr>
                 <%}%>
               </tbody>
@@ -367,7 +391,11 @@ button:focus {
  			 <h2>Add Semester</h2>
  			 <form method="POST" action="<%=request.getContextPath()%>/semester">
  			 <label for="name">Name</label>
-			 <input type="text" name="name" />
+			  <select name="name" class="form-select select" aria-label="Default select example"> 
+				 <option value="SEMESTER 1">SEMESTER 1</option>
+				<option value="SEMESTER 2">SEMESTER 2</option>
+				<option value="SEMESTER 3">SEMESTER 3</option>
+			 </select>
 			  <label for="start-date">Start Date</label>
 			 <input type="date" name="start-date" />
 			  <label for="end-date">End Date</label>

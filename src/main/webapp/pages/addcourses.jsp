@@ -225,6 +225,7 @@ body {
                 class="form-select select"
                 id="teacher-select"
               >
+              <option value="" disabled selected>Select a teacher</option>
               <%
               TeacherDao teacherDao = new TeacherDao();
               List<Teacher> teachers = teacherDao.getAllTeachers();
@@ -242,6 +243,7 @@ body {
                 class="form-select select"
                 id="department-select"
               >
+               <option value="" disabled selected>Select a department</option>
               <%
               AcademicUnitDao academicUnitDao = new AcademicUnitDao();
               List<AcademicUnit> departments = academicUnitDao.getDepartments();
@@ -266,8 +268,18 @@ body {
               SemesterDao semesterDao = new SemesterDao();
            	 List<Semester> semesters = semesterDao.getAllSemesters();
             		  for(Semester semester:semesters){
+            			  String academicYear;
+                          int month = semester.getStartDate().getMonthValue();
+        					Integer year = semester.getStartDate().getYear();
+        					Integer previousYear = year - 1;
+        					Integer nextYear = year + 1;
+        					if(month > 8){
+        						academicYear = year.toString() + "-" + nextYear.toString();
+        					}else{
+        						academicYear = previousYear.toString()+"-"+ year.toString();
+        					}
               %>
-                <option value="<%=semester.getId()%>"><%=semester.getName() %>/<%=semester.getAcademicYear()%></option>
+                <option value="<%=semester.getId()%>"><%=semester.getName() %>/<%=academicYear%></option>
                 <%}%>
               </select>
               <label for="credits">Number of credits</label>

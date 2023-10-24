@@ -93,6 +93,40 @@ public class AcademicUnitDao {
         }
 		return null;
     }
+	public List<AcademicUnit> getFaculties() {
+        Transaction transaction = null;
+        try {
+        	Session session = FactoryManager.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+           Query query = session.createQuery("from AcademicUnit where unit = :unit");
+           query.setString("unit", EAcademicUnit.FACULTY.toString());
+           List<AcademicUnit> faculties = query.list();
+           return faculties;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+		return null;
+    }
+	public List<AcademicUnit> getPrograms() {
+        Transaction transaction = null;
+        try {
+        	Session session = FactoryManager.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+           Query query = session.createQuery("from AcademicUnit where unit = :unit");
+           query.setString("unit", EAcademicUnit.PROGRAMME.toString());
+           List<AcademicUnit> programs = query.list();
+           return programs;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+		return null;
+    }
 	public AcademicUnit getAcademicUnitById(Integer id) {
         Transaction transaction = null;
         try {

@@ -440,44 +440,7 @@ text-decoration: none;
                 </select>
               </label>
             </fieldset>
-            <fieldset>
-             
-                <label for="admission-form-faculty">
-                 Faculty *
-                  <select
-                   	id="admission-form-faculty"
-                    name="admission-form-faculty"
-                   class="m-t-xs"
-                    onchange="fetchFaculty()"
-                  >
-                  <%
-                  List<AcademicUnit> faculties = unitDao.getFacultiesByProgramme(1);
-                		 for(AcademicUnit faculty:faculties){
-                  %>
-                  <option class="admission-form-faculty" value="<%=faculty.getId()%>"><%=faculty.getName() %></option>
-                  <%}%>
-                  </select>
-                </label>
-            </fieldset>
-            <fieldset>
-              <label for="admission-form-department" id="department-label">
-                Choose Department
-                <select
-                  id="admission-form-department"
-                  name="admission-form-department"
-                  class="m-t-xs"
-                >
-                   <%
-                  List<AcademicUnit> departments = unitDao.getDepartmentsByFaculty(3);
-                		 for(AcademicUnit department:departments){
-                  %>
-                  <option value="<%=department.getId()%>">
-                    <%=department.getName() %>
-                  </option>
-                  <%}%>
-                </select>
-              </label>
-            </fieldset>
+          
             <fieldset>
               <label for="diploma" id="diploma-label">
                 Upload your diploma 

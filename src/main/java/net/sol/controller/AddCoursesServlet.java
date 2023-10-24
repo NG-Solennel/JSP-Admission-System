@@ -84,7 +84,6 @@ public class AddCoursesServlet extends HttpServlet {
 	      course.setDepartments(departments);
 	      course.setSemester(semester);
 	      course.setTutors(tutors);
-	      course.setCredits(Integer.parseInt(jsonObject.getString("credits")));
 	      RequestDispatcher dispatcherForm = request.getRequestDispatcher("./pages/courses.jsp");
 			dispatcherForm.forward(request, response);
 			courseDao.saveCourse(course);

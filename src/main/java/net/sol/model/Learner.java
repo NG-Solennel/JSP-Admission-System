@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
 public class Learner implements Serializable {
@@ -39,7 +38,7 @@ public class Learner implements Serializable {
     private int age;
  
 	@ManyToOne
-   private AcademicUnit department;
+   private AcademicUnit program;
    
 	@Column(name="Status")
    private String status;
@@ -66,13 +65,13 @@ public class Learner implements Serializable {
 
 
 	public Learner( String name, String email, String guardianName, String guardianEmail, int age,
-			AcademicUnit department, String status, String suggestions, byte[] photo, char[] diploma) {
+			AcademicUnit program, String status, String suggestions, byte[] photo, char[] diploma) {
 		this.name = name;
 		this.email = email;
 		this.guardianName = guardianName;
 		this.guardianEmail = guardianEmail;
 		this.age = age;
-		this.department = department;
+		this.program = program;
 		this.status = status;
 		this.suggestions = suggestions;
 		this.photo = photo;
@@ -153,14 +152,14 @@ public class Learner implements Serializable {
 
 
 
-	public AcademicUnit getDepartment() {
-		return department;
+	public AcademicUnit getProgram() {
+		return program;
 	}
 
 
 
-	public void setDepartment(AcademicUnit department) {
-		this.department = department;
+	public void setProgram(AcademicUnit program) {
+		this.program = program;
 	}
 
 

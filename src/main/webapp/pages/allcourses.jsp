@@ -3,7 +3,7 @@
 <%@page import="java.util.Base64"%>
 <%@page import="net.sol.dao.StudentDao"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="net.sol.model.Student"%>
+<%@page import="net.sol.model.Learner"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

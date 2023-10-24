@@ -79,6 +79,9 @@ bottom: 20px
             <a href="<%=request.getContextPath()%>/allcourses" class="main-card">
                 <span>Course Definition</span>
             </a>
+            <a href="<%=request.getContextPath()%>/add-academicUnit" class="main-card">
+                <span>Academic Unit</span>
+            </a>
             <a href="<%=request.getContextPath()%>/teacher" class="main-card">
                 <span>Teachers</span>
             </a>

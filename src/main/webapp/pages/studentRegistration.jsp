@@ -210,6 +210,24 @@ right: 200px
 }
 a{
 text-decoration: none;
+color: white
+}
+.semesters{
+	font-size: 24px;
+	text-align: center;
+	margin-top: 20px
+}
+.regId {
+	display: none
+}
+.regName{
+	color: white;
+	cursor: pointer;
+	display: inline-block
+}
+.regName:hover{
+	color: brown;
+	cursor: pointer;
 }
     </style>
   </head>
@@ -220,17 +238,16 @@ text-decoration: none;
         <div class="back-container">
 				<a href="<%=request.getContextPath()%>/home" class="back">
 	           Back
-	           </a>  
-	            <a href="<%=request.getContextPath()%>/students" class="main-card add-student">
-                <span>Add courses to your new semester</span>
-            </a>       
+	           </a>        
 	        </div>
 	        <%
 	        StudentRegistrationDao studentRegistrationDao = new StudentRegistrationDao();
 	        List<StudentRegistration> registrations = studentRegistrationDao.getAllRegistrations();
 	        for(StudentRegistration registration:registrations){
 	        %>
-	        <p>You have successfully been registered to <a href="<%=request.getContextPath()%>/student-course" ><%=registration.getSemester().getName() %></a></p>
+	        <div class="semesters"><span><%=registration.getStudent().getName() %></span> has successfully been registered to <span class="registrationHandle"><span class="regName"><%=registration.getSemester().getName() %></span><span class="regId"><%=registration.getId() %></span>
+	        </span>
+	        </div>
 	        <%} %>
           <div class="form-container mt-5">
             <h2>Student registration</h2>
@@ -246,18 +263,59 @@ text-decoration: none;
               SemesterDao semesterDao = new SemesterDao();
            	 List<Semester> semesters = semesterDao.getAllSemesters();
             		  for(Semester semester:semesters){
+            			  
+                          String academicYear;
+                          int month = semester.getStartDate().getMonthValue();
+        					Integer year = semester.getStartDate().getYear();
+        					Integer previousYear = year - 1;
+        					Integer nextYear = year + 1;
+        					if(month > 8){
+        						academicYear = year.toString() + "-" + nextYear.toString();
+        					}else{
+        						academicYear = previousYear.toString()+"-"+ year.toString();
+        					}
               %>
-                <option value="<%=semester.getId()%>"><%=semester.getName() %>/<%=semester.getAcademicYear()%></option>
+              
+                <option value="<%=semester.getId()%>"><%=semester.getName() %>/<%=academicYear%></option>
                 <%}%>
               </select>
               <label for="student">Insert your student ID</label>
-			 <input type="number" name="id"  id="studentId"/>
+			 <input type="number" name="id"  id="studentId" placeholder="Student ID"/>
+			 <label for="department">Department</label>
+			 <select
+                name="department"
+                class="form-select select"
+                id="department-select"
+              >
+               <option value="" disabled selected>Select a department</option>
+              <%
+              AcademicUnitDao academicUnitDao = new AcademicUnitDao();
+              List<AcademicUnit> departments = academicUnitDao.getDepartments();
+            		 for(AcademicUnit department:departments){
+              %>
+                <option value="<%=department.getId()%>">
+                  <%=department.getName() %>
+                </option>
+                <%}%>
+              </select>
               <button type="submit">Register</button>
             </form>
+          </div>
+          <div>
           </div>
         </div>
       </div>
     </div>
+    <script>
+    const regHandles = document.querySelectorAll(".registrationHandle")
+    regHandles.forEach(regHandle=>{
+    	regHandle.addEventListener("click",()=>{
+        localStorage.setItem("registrationId",regHandle.querySelector(".regId").textContent)
+        const base = location.href.split("/student-")[0]
+        location.href= base + "/student-course"
+        })
+    })
+    </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

@@ -1,5 +1,6 @@
 package net.sol.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -10,21 +11,22 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Semester {
+public class Semester implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 	private String name;
 	private LocalDate startDate;
 	private LocalDate endDate;
-	private String academicYear;
 	
 	@OneToMany(mappedBy="semester")
 	private List<Course> courses;
 
-//	@OneToMany(mappedBy="semester")
-//	private List<StudentRegistration> registrations;
-//	
+	@OneToMany(mappedBy="semester")
+	private List<StudentRegistration> registrations;
+
 	public Semester() {
 		// TODO Auto-generated constructor stub
 	}
@@ -33,14 +35,6 @@ public class Semester {
 		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		int month = this.startDate.getMonthValue();
-		Integer year = this.startDate.getYear();
-		Integer previousYear = year -1;
-		Integer nextYear = year + 1;
-		if(month > 8) {
-			this.academicYear = year.toString() + "-" + nextYear.toString();
-		}
-		this.academicYear =previousYear.toString() + "-" + year.toString();
 	}
 
 	public int getId() {
@@ -67,19 +61,7 @@ public class Semester {
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
-	public String getAcademicYear() {
-		return academicYear;
-	}
-	public void setAcademicYear() {
-		int month = this.startDate.getMonthValue();
-		Integer year = this.startDate.getYear();
-		Integer previousYear = year -1;
-		Integer nextYear = year + 1;
-		if(month > 8) {
-			this.academicYear = year.toString() + "-" + nextYear.toString();
-		}
-		this.academicYear =previousYear.toString() + "-" + year.toString();
-	}
+	
 	public List<Course> getCourses() {
 		return courses;
 	}

@@ -4,7 +4,7 @@
 <hibernate-configuration>
  <session-factory name="">
   <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/auca_admission</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/auca</property>
   <property name="hibernate.connection.username">root</property>
   <property name="hibernate.connection.password">KING2000</property>
   <property name="hibernate.hbm2ddl.auto">update</property>
@@ -17,5 +17,6 @@
   <mapping class="net.sol.model.Semester"/>
   <mapping class="net.sol.model.Course"/>
   <mapping class="net.sol.model.StudentRegistration"/>
+  <mapping class="net.sol.model.StudentCourse"/>
  </session-factory>
 </hibernate-configuration>

@@ -291,7 +291,6 @@ display: flex;
                   <th>Semester</th>
                   <th>Departments</th>
                   <th>Tutors</th>
-                  <th>Credits</th>
                 </tr>
               </thead>
               <tbody>
@@ -334,9 +333,6 @@ display: flex;
                   }
                   %>
                   <td class="listing"><%=tutorStr.toString() %></td>
-                  <td> 
-                     <%= course.getCredits() %>
-                  </td>
                 </tr>
                 <%} %>
               </tbody>

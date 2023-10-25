@@ -30,245 +30,105 @@
       @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
     </style>
   <style>
-  :root{
-    --text-color:#1FFF96;
-    --success-text:#0d6832;
-    --primary-text:#273e63;
-    --warning-text:#73510d;
-    --danger-text: #A61001;
-    --success-bg:#d6f0e0;
-    --primary-bg:#dfe7f6;
-    --warning-bg:#fbf0da;
-    --danger-bg: #FFEBE9;
-    --primary-btn-text:#3b71ca;
-    --main-bg: #222;
-    --secondary-bg: #555;
-    --primary-color: #1FFF96
+	/* Reset some default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-*{
-    color:var(--text-color);
-    font-family: 'Open Sans', sans-serif;
-    font-family: 'Poppins', sans-serif;
+/* Set a background color for the entire page */
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f2f2f2;
 }
 
-.main{
-    background-color: var(--main-bg) !important;
-    height: 100vh;
-    
+/* Main container */
+.main {
+  background-color: #f2f2f2;
+  padding: 20px;
 }
 
-tbody td{
-font-size: 13px;
+/* Container for Back link and filters */
+.main-sub {
+  display: flex;
+  justify-content: space-between;
 }
 
-.text-primary{
-    color:var(--primary-btn-text) !important;
+/* Back link */
+.back {
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 20px;
+  font-weight: bold;
 }
 
-.fw-bold{
-    font-weight: 500 !important;
+/* Filters section */
+.filters {
+  display: flex;
+  align-items: center;
 }
 
-h2{
-    font-weight: 400;
-    margin-bottom: unset;
-    
+/* Style the filter links */
+.main-card {
+  margin-right: 10px;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: #333;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
-.action-icon{
-    font-size: 1.08rem;
+.main-card:hover {
+  background-color: #f2f2f2;
 }
 
-/* //Badge color overwirte */
-
-
-
-.badge-success{
-    color:var(--success-text) !important;
-    background-color:var(--success-bg);
-    border: 1px solid;
+/* Table container */
+.table-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
 }
 
-.badge-primary{
-    color:var(--primary-text) !important;;
-    background-color:var(--primary-bg);
-    border: 1px solid;
+/* Table header row */
+.header-row {
+  background-color: #f8f9fa;
 }
 
-.badge-warning{
-    color:var(--warning-text) !important;;
-    background-color:var(--warning-bg);
-    border: 1px solid;
+/* Table cell styles */
+td {
+  padding: 10px;
+  vertical-align: middle;
 }
 
-.badge-danger{
-    color:var(--danger-text) !important;;
-    background-color: var(--danger-bg);
-    border: 1px solid;
+/* Student avatar */
+.avatar-button {
+  border: none;
+  background-color: transparent;
 }
 
-.time{
-  font-size:.75rem;
-}
-
-
-/* //Badge color overwirte end */
-
-
-/* table styling */
-
-/* primary table container  */
-.table-container{
-    box-shadow: #1FFF96 0px 2px 10px;
-    padding:1rem;
-    border-radius: 12px;
-    background-color: var(--main-bg);
-    height: 550px;
-    overflow-y: scroll;
-}
-
-
-th{
-    padding:1rem .5rem !important;   
-   font-size: .875rem;
-    margin-bottom: 1rem !important;
-    background-color: var(--main-bg) !important;
-    color:var(--text-color) !important;
-    font-weight: 600 !important;
-    text-align: center;
-}
-
-th:last-child  {
-   border-top-right-radius: 12px;
-}
-
-td{
-text-align: center;
-}
-
- th:first-child  {
-   border-top-left-radius: 12px;
-}
-
-
- tbody{
-    background-color: var(--main-bg);
- }
-
-
-/* Changing TH bottom border color*/
-.table>:not(:last-child)>:last-child>* {
-     border-bottom-color: var(--primary-color) !important;
-    
-}
-
-ul{
-    margin-bottom: 0rem !important;
-}
-
-.avatar-span{
+.avatar-span {
   width: 40px;
   height: 40px;
-  cursor: pointer;
-  background-size: cover;
-  border-radius: 20px;
-  object-fit: fill;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #007bff;
 }
 
-/* table styling end*/
-
-/*  button styling */
-.btn-link{
-    font-weight: 500;
-    color:var(--primary-text);
-    /* border:1px solid #2c58a094 !important; */
-    border-radius: 8px;
-    text-decoration: underline 0.1em rgb(255, 255, 255) !important;
-    text-underline-offset: 0.2em !important;
-    transition: text-decoration-color 300ms, text-underline-offset 300ms !important;
+/* Table pagination (if needed) */
+.pagination {
+  margin-top: 20px;
+  justify-content: center;
 }
-
-.btn-link:hover{
-  text-decoration-color:#0d6efd !important;
-  text-underline-offset: 0.4em !important; 
-}
-
-.logout-btn{
-    text-decoration: none;
-    font-size: 1rem;
-}
-
-.page-link{
-    border: unset !important;
-    color:var(--primary-btn-text)
-}
-.back{
-    padding: 5px 20px;
-    box-shadow: #1FFF96 0px 2px 10px;
-    max-width: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s ease-in;
-    text-decoration: none;
-    color: #1FFF96;
-    position: absolute;
-    right: 80px;
-}
-.back:hover{
-    scale: 1.1;
-    color: #1FFF96
-}
-.back-container{
-	width: 100%;
-	position: relative;
-	margin: 30px 0
-}
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar:horizontal {
-  height: 6px;
-}
-::-webkit-scrollbar-track,
-::-webkit-scrollbar-corner {
-  background: transparent;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background: #00B862;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #1FFF96;
-}
-a{
-    text-decoration: none;
-    color:white
-}
-a:hover{
-    color:white 
-}
-   .main-card{
-    box-shadow: #1FFF96 0px 2px 10px;  
-    width: 10vw;
-    height: 5vh;
-    font-size: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #1FFF96;
-    transition: all 0.3s ease-in;
-}
-.main-card:hover{
-    scale: 1.1;
-}
-.filters{ 
-display: flex;
- gap: 20px
-}
+	
   </style>
     <title>Students</title>
   </head>
@@ -283,9 +143,6 @@ display: flex;
            <div class="filters">
             <a href="<%=request.getContextPath()%>/studentsBySemester" class="main-card">
                 <span>By semester</span>
-            </a>
-            <a href="<%=request.getContextPath()%>/studentsByDepartment" class="main-card">
-                <span>By department</span>
             </a>
             </div>        
         </div>
@@ -331,7 +188,7 @@ display: flex;
                           src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(student.getPhoto()) %>"
                           class="avatar-span border-0 d-inline-flex align-items-center justify-content-center text-white text-uppercase text-nowrap font-weight-normal"
                         >
-                      ></a>
+                      </a>
                       <!----></span
                     ><%=student.getName()%>
                   </td>
@@ -339,13 +196,10 @@ display: flex;
                     <p class="fw-bold fw-normal mb-1"><%=student.getEmail()%></p>
                   </td>
 
-              
-                  
-                  <td>
-                    <span class="badge badge-success rounded-pill d-inline"
-                      ><%=student.getProgram().getName()%></span
-                    >
+               <td>
+                    <p class="fw-bold fw-normal mb-1"><%=student.getProgram().getName()%></p>
                   </td>
+      
                 </tr>
                 <%}%>
               </tbody>

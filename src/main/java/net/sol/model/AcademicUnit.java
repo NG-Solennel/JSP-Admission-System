@@ -31,7 +31,9 @@ public class AcademicUnit implements Serializable {
 	@ManyToMany(mappedBy="departments")
 	private List<Course> courses;
 	
-
+	@OneToMany(mappedBy="department")
+	private List<StudentRegistration> registrations;
+	
 	public AcademicUnit(Integer id,Integer parent_id, String name, EAcademicUnit unit) {
 		this.id = id;
 		this.parentId = parent_id;

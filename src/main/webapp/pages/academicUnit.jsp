@@ -5,69 +5,178 @@
 <head>
 <meta charset="UTF-8">
 <title>Home</title>
-<style>
-*{
-    margin:0;
-    padding:0;
+  <style>
+  /* Reset some default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-background-color: #222222;
-color:#1FFF96;
+/* Set a background color for the entire page */
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f2f2f2;
 }
 
-a{
-text-decoration: none;
+/* Main container */
+.main {
+  background-color: #f2f2f2;
+  padding: 20px;
 }
 
-header{
-   text-align: center;
-    font-size: 52px;
-    padding-top: 70px;
+/* Container for Back link */
+.back-container {
+  display: flex;
+  justify-content: space-between;
 }
 
-main{
+/* Back link */
+.back {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Form container */
+.form-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+}
+
+/* Form title */
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Form labels */
+label {
+  font-weight: bold;
+}
+
+/* Form selects and inputs */
+.select, #credits {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Add Student Course button */
+button {
+  color: #fff;
+  background-color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  display: block;
+  margin-top: 20px;
+}
+
+/* Add Student Course button hover effect */
+button:hover {
+  background-color: #0056b3;
+}
+  html, body {
+    height: 100%;
+}
+
+/* Center the content vertically and horizontally */
+body {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative
-    height: 100%
-}
-.logout{
-position: absolute;
-right: 50px;
-bottom: 20px
-}
-.menus{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    width: 80%;
-    height: 40vh;
-    margin-top: 10vh;
-    align-items: center;
-    justify-content: center;
 }
 
-.main-card{
-    box-shadow: #1FFF96 0px 2px 10px;  
-    width: 20vw;
-    height: 10vh;
-    font-size: 32px;
+/* Style the title text */
+.title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Style the header background */
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Style the main section background */
+main {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the section containing main links */
+.menus {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px
+}
+
+/* Style the links within .main-card */
+.main-card a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* Hover effect for links */
+.main-card a:hover {
+    color: #007bff;
+}
+
+/* Style the "Logout" link differently */
+.logout a {
+    background-color: #ff5555;
+    color: #fff;
+}
+
+/* Add margin to the "Logout" link */
+.logout a {
+    margin-top: 10px;
+}
+
+/* Style the <span> elements within .main-card */
+.main-card span {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Center the text within .main-card */
+.main-card a, .logout a {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #1FFF96;
-    transition: all 0.3s ease-in;
+    height: 100%;
 }
-.main-card:hover{
-    scale: 1.1;
+
+/* Style links in the footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
 }
-</style>
+
+  
+  </style>
 </head>
 <body>
-<header>
-        <div>Academic Unit</div>
-    </header>
+
     <main>
         <section class="menus">
             <a href="<%=request.getContextPath()%>/program" class="main-card">

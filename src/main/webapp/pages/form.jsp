@@ -10,304 +10,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admission Form</title>
     <style>
-    @charset "UTF-8";
-.m-b-xs {
-  margin-bottom: 2%;
-}
-
-.m-b-md {
-  margin-bottom: 10%;
-}
-
-.m-t-xs {
-  margin-top: 2%;
-}
-
-.m-t-sm {
-  margin-top: 5%;
-}
-
+/* Reset some default browser styles */
 * {
-  outline: 0 !important;
-}
-
-body {
-  padding: 2% 0;
-  background-color: #222222;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.container {
-  width: 60%;
-}
-
-h1 {
-  font-family: "Roboto", sans-serif;
-  font-size: 2.2em;
-  font-weight: 300;
-  color: #1FFF96;
-  text-transform: uppercase;
-}
-
-p {
-  font-family: "Roboto", sans-serif;
-  font-size: 1.1em;
-  font-weight: 300;
-  color: #fff;
-}
-
-a {
-  color: #fff;
-}
-a:hover {
-  text-decoration: none;
-  color: #fff;
-}
-
-#admission-form label,
-#admission-form .labels {
-  display: block;
-  margin-bottom: 2%;
-  font-family: "Roboto", sans-serif;
-  font-size: 1.1em;
-  font-weight: 300;
-  color: #fff;
-  letter-spacing: 0.5px;
-}
-#admission-form input::-webkit-input-placeholder {
-  color: transparent !important;
-}
-#admission-form input::-moz-placeholder {
-  color: transparent !important;
-}
-#admission-form input:-ms-input-placeholder {
-  color: transparent !important;
-}
-#admission-form input:-moz-placeholder {
-  color: transparent !important;
-}
-#admission-form input,
-#admission-form select {
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  outline: none;
-  border: 2px solid #333;
-}
-#admission-form input {
-  margin-top: 1.5%;
-  padding: 0 0 5px 0;
-  background: transparent;
-  border: none;
-  outline: none;
-  border-bottom: 2px solid #fff;
-  font-size: 1.1em;
-  font-weight: 300;
-  color: #1FFF96;
-}
-#admission-form input:focus {
-  border-color: #1FFF96;
-}
-#admission-form [type="checkbox"],
-#admission-form [type="radio"] {
-  display: inline-block;
-  width: auto;
-  margin: 0px 10px 0 0;
-}
-#admission-form [type="checkbox"],
-#admission-form [type="radio"] {
-  display: inline-block;
-  margin: 0 10px 0 0 !important;
-  position: relative;
-  top: 5px;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -o-appearance: none;
-  appearance: none;
-  height: 23px;
-  width: 23px;
-  transition: all 0.15s ease-out 0s;
-  background: #222222;
-  color: #fff;
-  cursor: pointer;
-  outline: none;
-  z-index: 1000;
-  border: 1px solid #fff;
-}
-#admission-form [type="checkbox"]:hover,
-#admission-form [type="radio"]:hover {
-  border-color: #1FFF96;
-}
-#admission-form [type="checkbox"]:checked:before,
-#admission-form [type="radio"]:checked:before {
-  display: inline-block;
-  height: 21px;
-  width: 21px;
-  position: relative;
-  left: 0;
-  bottom: 0;
-  content: "";
-  text-align: center;
-  font-family: "Glyphicons Halflings";
-  line-height: 20px;
-  font-size: 15px;
-  color: #1FFF96;
-}
-#admission-form [type="checkbox"]:focus,
-#admission-form [type="radio"]:focus {
-  outline: none;
-  border-color: #fff;
-}
-#admission-form [type="radio"] {
-  border-radius: 50%;
-}
-#admission-form [type="radio"]:after {
-  border-radius: 50%;
-}
-#admission-form [type="number"] {
-  width: 45px;
-}
-#admission-form [type="number"]::-webkit-inner-spin-button,
-#admission-form [type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-#admission-form select {
-  height: 40px;
-  padding-left: 5px;
-  background-color: #222222;
-  border: 2px solid #fff;
-  color: #1FFF96;
+
+/* Set a background color for the entire page */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
 }
-#admission-form select option {
-  padding: 5px 10px;
-  font-weight: 300;
-  cursor: pointer;
-}
-#admission-form select option:hover {
-  background-color: #1FFF96;
-}
-#admission-form textarea {
-  resize: none;
-  margin-top: 2%;
-  padding: 10px 10px 0px 20px;
-  width: 95%;
-  height: 90px;
-  color: #1FFF96;
-  background-color: #222222;
-  border: 2px solid #fff;
-}
-#admission-form .btn {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  margin: 3% 0 0 0;
-  height: 45px;
-  text-transform: uppercase;
-  text-decoration: none;
-  cursor: pointer;
-  border: 3px solid #1FFF96;
-  border-radius: 0;
-  font-weight: 500;
-  font-size: 1.2em;
-  color: #1FFF96;
-  text-align: center;
-  background: none;
-  transition: color 0.25s ease;
-}
-#admission-form .btn:after {
-  position: absolute;
-  content: "";
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 100%;
-  background-color: #1FFF96;
-  transform-origin: left;
-  transition: width 0.5s ease;
-  z-index: -1;
-}
-#admission-form .btn:hover {
-  color: #222222;
-}
-#admission-form .btn:hover:after {
-  width: 100%;
-}
-#admission-form fieldset {
-  margin: 5% 0 0 0;
-}
-fieldset .radio-content {
+
+/* Center the main content */
+#main {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+  padding: 20px;
 }
 
-.copyright {
+/* Style the "Back" link */
+.back {
+  color: #007bff;
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+/* Style the main title and description */
+#title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description {
   text-align: center;
-  font-size: 10px;
-  color: #fff;
-}
-.copyright i {
-  color: #ef5350;
+  color: #555;
 }
 
-fieldset small {
-  color: #f55656;
-  font-weight: 600;
+/* Style the form and form fields */
+#admission-form {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin: 20px auto;
+}
+
+fieldset {
+  margin: 20px 0;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+select {
+  height: 40px;
+}
+
+/* Style error messages */
+.small.error {
   display: none;
+  color: #ff5555;
+  margin-top: 5px;
 }
-.back{
-    padding: 5px 20px;
-    box-shadow: #1FFF96 0px 2px 10px;
-    max-width: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s ease-in;
-    text-decoration: none;
-    color: #1FFF96;
-    position: absolute;
-    right: 80px;
+
+/* Style the "Submit" button */
+.btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
-.back:hover{
-    scale: 1.1;
-    color: #1FFF96
+
+/* Add a hover effect to the "Submit" button */
+.btn:hover {
+  background-color: #0056b3;
 }
-.back-container{
-	width: 100%;
-	position: relative;
-	margin: 30px 0
-}
-@media only screen and (max-width: 600px) {
-  body {
-    padding: 8% 0;
-  }
-}
-    .add-student {
-position: absolute;
-right: 200px
-}
-     .main-card{
-    box-shadow: #1FFF96 0px 2px 10px;  
-    width: 10vw;
-    height: 5vh;
-    font-size: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #1FFF96;
-    transition: all 0.3s ease-in;
-}
-a{
-text-decoration: none;
-}
+
     </style>
   </head>
   <body>

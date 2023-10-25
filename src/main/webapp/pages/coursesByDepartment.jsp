@@ -305,7 +305,7 @@ display: flex;
               </thead>
               <tbody id="table-body">
              <%
-             AcademicUnit department = academicUnitDao.getAcademicUnitById(13);
+             AcademicUnit department = academicUnitDao.getAcademicUnitById(departments.get(0).getId());
              List<Course> courses = department.getCourses();
              for(Course course:courses){
              %>
@@ -348,6 +348,7 @@ select.addEventListener("input",()=>{
 	const param = new URLSearchParams();
 	param.append("id",select.value.split("-")[0]);
 	fetch("filterByDepartment?"+param).then(res=>res.json()).then(res=>{
+		console.log(res)
 		const tbody = document.getElementById("table-body");
 		tbody.innerHTML =""
 		res.forEach(course=>{

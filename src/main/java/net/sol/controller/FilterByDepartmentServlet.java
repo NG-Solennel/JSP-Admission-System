@@ -44,10 +44,7 @@ public class FilterByDepartmentServlet extends HttpServlet {
 	    if (department != null) {
 	        List<Course> courses = department.getCourses();
 	        Gson gson = new GsonBuilder()
-	        		.registerTypeAdapter(AcademicUnit.class, new Serializers.AcademicUnitSerializer())
-	        		.registerTypeAdapter(Semester.class, new Serializers.SemesterSerializer())
-	        		.registerTypeAdapter(Teacher.class, new Serializers.TeacherSerializer())
-	        		.registerTypeAdapter(CourseDefinition.class, new Serializers.CourseDefinitionSerializer())
+	        		.registerTypeAdapter(Course.class, new Serializers.CourseSerializer())
 	        		.create();
 	        String coursesJson = gson.toJson(courses);
 	        response.setContentType("application/json");

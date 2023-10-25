@@ -1,3 +1,6 @@
+<%@page import="net.sol.model.StudentRegistration"%>
+<%@page import="net.sol.model.Semester"%>
+<%@page import="net.sol.dao.SemesterDao"%>
 <%@page import="net.sol.model.Learner"%>
 <%@page import="net.sol.model.AcademicUnit"%>
 <%@page import="net.sol.dao.AcademicUnitDao"%>
@@ -216,6 +219,19 @@ ul{
     position: absolute;
     right: 80px;
 }
+    .form-select {
+        background: #3b3b3b;
+        color: #1fff96;
+        border: none;
+        margin: 10px 0;
+        max-width: fit-content
+      }
+
+      .form-select:focus {
+        box-shadow: #1fff96 0px 2px 10px;
+        border: none;
+      }
+
 .back:hover{
     scale: 1.1;
     color: #1FFF96
@@ -251,24 +267,13 @@ a{
 a:hover{
     color:white 
 }
-   .main-card{
-    box-shadow: #1FFF96 0px 2px 10px;  
-    width: 10vw;
-    height: 5vh;
-    font-size: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #1FFF96;
-    transition: all 0.3s ease-in;
-}
-.main-card:hover{
-    scale: 1.1;
-}
 .filters{ 
 display: flex;
- gap: 20px
+ gap: 20px;
+ justify-content: center;
+ align-items: center
 }
+
   </style>
     <title>Students</title>
   </head>
@@ -280,19 +285,27 @@ display: flex;
       <a href="<%=request.getContextPath()%>/home" class="back">
            Back
            </a>  
-           <div class="filters">
-            <a href="<%=request.getContextPath()%>/studentsBySemester" class="main-card">
-                <span>By semester</span>
-            </a>
-            <a href="<%=request.getContextPath()%>/studentsByDepartment" class="main-card">
-                <span>By department</span>
-            </a>
-            <a href="<%=request.getContextPath()%>/studentsByCourse" class="main-card">
-                <span>By course</span>
-            </a>
-            </div>        
+             <div class="filters">
+             <span>Choose department</span>
+             <select
+                name="department-select"
+                class="form-select select"
+                id="department-select"
+              >
+              <option disabled selected value="">Select department</option>
+              <%
+             AcademicUnitDao dao = new AcademicUnitDao();
+              List<AcademicUnit> departments = dao.getDepartments();
+              for(AcademicUnit department:departments){
+              %>
+                <option value="<%=department.getId()%>">
+                  <%=department.getName() %>
+                </option>
+                <%}%>
+              </select>
+            </div>   
         </div>
-          <div class="table-container mt-5">
+      <div class="table-container mt-5">
             <div class="mb-2">
               <h2 class="">Students</h2>
               <small class="text-secondary"
@@ -308,65 +321,40 @@ display: flex;
                   <th>Program</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="table-body">
               <%
-              List<Learner> students = new ArrayList<Learner>();
-                                          StudentDao dao = new StudentDao();
-                                          students = dao.getAllStudents();
-                                          
-                                          for (Learner student : students) {
+                 AcademicUnit dep1 = departments.get(0);
+                List<StudentRegistration> regs = dep1.getRegistrations();
+                for(StudentRegistration registration:regs){
               %>
                 <tr>
                   <td>
                     <div class="d-flex align-items-center">
                       <div class="">
                         <p class="fw-bold mb-1">
-                        <%=student.getId()%>
+                        <%=registration.getStudent().getId()%>
                         </p>
                       </div>
                     </div>
                   </td>
                   <td>
-                    <span
-                      ><a
-                        class="btn avatar-button rounded-circle overflow-hidden p-0 m-0 d-inline-flex"
-                        ><img
-                          src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(student.getPhoto()) %>"
-                          class="avatar-span border-0 d-inline-flex align-items-center justify-content-center text-white text-uppercase text-nowrap font-weight-normal"
-                        >
-                      ></a>
-                      <!----></span
-                    ><%=student.getName()%>
+                   <%=registration.getStudent().getName()%>
                   </td>
                   <td>
-                    <p class="fw-bold fw-normal mb-1"><%=student.getEmail()%></p>
+                    <p class="fw-bold fw-normal mb-1"><%=registration.getStudent().getEmail()%></p>
                   </td>
 
               
                   
                   <td>
                     <span class="badge badge-success rounded-pill d-inline"
-                      ><%=student.getProgram().getName()%></span
+                      ><%=registration.getStudent().getProgram().getName()%></span
                     >
                   </td>
                 </tr>
                 <%}%>
               </tbody>
             </table>
-
-            <!-- <nav class="mt-4">
-              <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                  <a class="page-link">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">Next</a>
-                </li>
-              </ul>
-            </nav> -->
           </div>
         </div>
       </div>
@@ -393,6 +381,38 @@ $("#change-status").change(function(){
     }
     
   });
+</script>
+<script>
+const select = document.getElementById("department-select")
+select.addEventListener("input",()=>{
+	const param = new URLSearchParams();
+	param.append("id",select.value.split("-")[0]);
+	fetch("studentsByDepartment?"+param,{
+		method:"POST"
+	}).then(res=>res.json()).then(res=>{
+		console.log(res)
+		const tbody = document.getElementById("table-body");
+		tbody.innerHTML =""
+		res.forEach(reg=>{
+		const row = document.createElement('tr')
+		const data1 = document.createElement("td")
+		const data2 = document.createElement("td")
+		const data3= document.createElement("td")
+		const data4 = document.createElement("td")
+		data1.textContent = reg.student.id
+		data2.textContent = reg.student.name
+		data3.textContent = reg.student.email
+		data4.textContent = reg.student.program
+
+		row.append(data1)
+		row.append(data2)
+		row.append(data3)
+		row.append(data4)
+
+		tbody.append(row)
+		})
+	})
+})
 </script>
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

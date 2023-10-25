@@ -271,9 +271,7 @@ display: flex;
             <a href="<%=request.getContextPath()%>/coursesByDepartment" class="main-card">
                 <span>By department</span>
             </a>
-            <a href="<%=request.getContextPath()%>/addcourses" class="main-card">
-                <span>By Semester</span>
-            </a>
+
             </div>
 	    	</div>
             <div class="table-container mt-5">

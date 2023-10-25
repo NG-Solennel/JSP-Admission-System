@@ -31,6 +31,9 @@ public class AcademicUnit implements Serializable {
 	@ManyToMany(mappedBy="departments")
 	private List<Course> courses;
 	
+	@OneToMany(mappedBy="department")
+	private List<StudentRegistration> registrations;
+	
 
 	public AcademicUnit(Integer id,Integer parent_id, String name, EAcademicUnit unit) {
 		this.id = id;
@@ -79,6 +82,14 @@ public class AcademicUnit implements Serializable {
 
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
+	}
+
+	public List<StudentRegistration> getRegistrations() {
+		return registrations;
+	}
+
+	public void setRegistrations(List<StudentRegistration> registrations) {
+		this.registrations = registrations;
 	}
 	
 	
